@@ -15,10 +15,8 @@
 		</div>
 		<div id="categoryTableContainer">
 
-			@{
-
-				Html.RenderAction("CategoryTable");
-
+			@{ 
+                Html.RenderAction("CategoryTable");
 			}
 
 		</div>
@@ -29,3 +27,12 @@
 		</div>
 	</div>
 </section>
+<script>
+    function focusAction(controlToFocus) {
+        $('html, body').animate({
+            scrollTop: $("#" + controlToFocus).offset().top - 100
+        }, 100);
+    }
+
+
+</script>

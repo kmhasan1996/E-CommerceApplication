@@ -1,4 +1,6 @@
-﻿using System;
+﻿using E_Commerce.Services;
+using E_Commerce.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,12 @@ namespace E_Commerce.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+
+            model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategory();
+            //model.FeaturedProducts = ProductService.Instance.GetProducts(1);
+
+            return View(model);
         }
 
         public ActionResult About()

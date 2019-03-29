@@ -1,28 +1,9 @@
-﻿@model EcommerceApplication.ViweModels.EditCategoryViewModel
+﻿@model E_Commerce.Web.ViewModels.EditCategoryViewModel
 @{
-	ViewBag.Title = "Edit";
+	
 	var trueChecked = Model.isFeatured ? "checked" : string.Empty;
 	var falseChecked = !Model.isFeatured ? "checked" : string.Empty;
 
-	//if (Model.isFeatured == true)
-	//{
-	//    var trueChecked = "checked";
-
-	//}
-	//else
-	//{
-	//    var trueChecked = "";
-	//}
-
-	//if (Model.isFeatured == false)
-	//{
-	//    var falseChecked = "checked";
-
-	//}
-	//else
-	//{
-	//    var falseChecked = "";
-	//}
 
 	var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
 }
@@ -36,10 +17,7 @@
 				<label>Name</label>
 				<input class="form-control" name="Name" value="@Model.Name" />
 			</div>
-			<div class="form-group">
-				<label>Description</label>
-				<input class="form-control" name="Description" value="@Model.Description" />
-			</div>
+			
 			<div class="form-group">
 				<label>Image</label>
 				<input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
@@ -67,3 +45,60 @@
 	<button id="cat_UpdateBtn" type="button" class="btn btn-primary">Update</button>
 	<button id="cat_CancelBtn" type="button" class="btn btn-primary">Cancel</button>
 </form>
+
+<script>
+	$("#imageUpload").change(function () {
+		var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("UploadImage", "Shared")',
+			dataType: 'json',
+			data: formData,
+			contentType: false,
+			processData: false
+		})
+        .done(function (response) {
+        	console.log(response);
+
+        	if (response.Success) {
+        		$("#ImageURL").val(response.ImageURL);
+        		$("#categoryImage").attr("src", response.ImageURL);
+        	}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
+
+    $("#cat_UpdateBtn").click(function () {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("Edit", "Category")',
+			data: $("#editCategory").serialize()
+		})
+        .done(function (response) {
+        	$("#categoryTableContainer").html(response);
+        	$("#actionContainer").html("");
+        	focusAction("categoryTableContainer");
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+
+    $("#cat_CancelBtn").click(function () {
+		$("#actionContainer").html("");
+       focusAction("categoryTableContainer");
+	});
+</script>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using E_Commerce.Entities;
+using E_Commerce.Services;
+using E_Commerce.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,41 +11,71 @@ namespace E_Commerce.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        // GET: Shared
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var categories = CategoryService.Instance.GetCategories();
+            return View(categories);
         }
         public ActionResult CategoryTable()
         {
-            return View();
+            var categories = CategoryService.Instance.GetCategories();
+            //categories = categories.Where(p => p.Name != null && p.Name.ToLower().Contains(search.ToLower())).ToList();
+            return PartialView(categories);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            NewCategoryViewModels model = new NewCategoryViewModels();
+
+            return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Create(int i)
+        public ActionResult Create(NewCategoryViewModels model)
         {
-            return View();
+            var newCategory = new Category();
+            newCategory.Name = model.Name;
+            newCategory.ImageURL = model.ImageURL;
+            newCategory.isFeatured = model.isFeatured;
+
+            CategoryService.Instance.CreateCategory(newCategory);
+
+            return RedirectToAction("CategoryTable");
         }
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int ID)
         {
-            return View();
+            EditCategoryViewModel model = new EditCategoryViewModel();
+
+            var category = CategoryService.Instance.GetCategory(ID);
+
+            model.ID = category.ID;
+            model.Name = category.Name;
+            model.ImageURL = category.ImageURL;
+            model.isFeatured = category.isFeatured;
+
+            return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Edit(int i)
+        public ActionResult Edit(EditCategoryViewModel model)
         {
-            return View();
+            var existingCategory = CategoryService.Instance.GetCategory(model.ID);
+            existingCategory.Name = model.Name;
+            existingCategory.ImageURL = model.ImageURL;
+            existingCategory.isFeatured = model.isFeatured;
+
+            CategoryService.Instance.UpdateCategory(existingCategory);
+
+            return RedirectToAction("CategoryTable");
         }
 
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(int ID)
         {
-            return View();
+            CategoryService.Instance.DeleteCategory(ID);
+
+            return RedirectToAction("CategoryTable");
         }
     }
 }

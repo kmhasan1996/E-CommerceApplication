@@ -186,6 +186,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -645,15 +647,16 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
-    <Content Include="Views\Category\CategoryTable.cshtml" />
-    <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\CategoryTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\about\" />
+    <Folder Include="Views\HomeView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -668,6 +671,20 @@
     <EmbeddedResource Include="Migrations\201903290454421_fieldAddedToRegisterViewModel.resx">
       <DependentUpon>201903290454421_fieldAddedToRegisterViewModel.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce.Database\E-Commerce.Database.csproj">
+      <Project>{99570766-9065-4b13-ad3b-601ca6c46218}</Project>
+      <Name>E-Commerce.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\E-Commerce.Entities\E-Commerce.Entities.csproj">
+      <Project>{BCA38047-626F-47D5-BD7C-52774B31035E}</Project>
+      <Name>E-Commerce.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\E-Commerce.Services\E-Commerce.Services.csproj">
+      <Project>{8e766f17-3f96-4a83-9ddf-be4294e9016c}</Project>
+      <Name>E-Commerce.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
