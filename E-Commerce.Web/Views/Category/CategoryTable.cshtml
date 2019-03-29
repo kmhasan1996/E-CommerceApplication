@@ -3,6 +3,9 @@
     ViewBag.Title = "CategoryTable";
 }
 
+<link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+
 
 <div class="container">
 
@@ -10,15 +13,15 @@
 </div>
 <hr />
 <div>
-    <table class="table table-hover">
+    <table id="CategoryTable" class="table table-hover">
         <thead>
-            <tr class="font-weight-bold">
+            <tr>
                 <td>Name</td>
                 @*<td>Description</td>*@
                 @*<td>Items</td>*@
                 <td>View</td>
 
-                <td colspan="2">Actions</td>
+                <td>Actions</td>
             </tr>
 
         </thead>
@@ -48,28 +51,10 @@
     </table>
 </div>
 <script>
-    $("#searchBtn").click(function () {
 
-        var searchValue = $("#searchTxt").val();
+    $('#CategoryTable').DataTable();
 
-        $.ajax({
-            type: "GET",
-            url: "/Category/CategoryTable",
-            data: {
-                search: searchValue
-            }
-        })
-            .done(function (response) {
-                $("#categoryTableContainer").html(response);
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
-            });
-
-
-    });
-
-
+    
     $("#newBtn").click(function () {
 
         $.ajax({
@@ -95,7 +80,7 @@
             url: "/Category/Edit",
             data: {
                 ID: $(this).attr('data-id')
-             }
+            }
 
         })
             .done(function (response) {
@@ -117,21 +102,21 @@
                 type: "POST",
                 url: "/Category/Delete",
                 data: {
-                   ID: $(this).attr('data-id')
+                    ID: $(this).attr('data-id')
                 }
 
             })
-            .done(function (response) {
-                $("#categoryTableContainer").html(response);
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
-            });
+                .done(function (response) {
+                    $("#categoryTableContainer").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                });
 
 
 
         }
-     });
+    });
 
 
 </script>
