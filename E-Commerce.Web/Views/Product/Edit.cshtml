@@ -1,45 +1,120 @@
-﻿@model EcommerceApplication.ViweModels.EditProductViewModel
+﻿@model E_Commerce.Web.ViewModels.EditProductViewModel
 @{
-	ViewBag.Title = "Edit";
-	var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
-}
+    
 }
 
-<h2>Edit Product</h2>
 <form id="editProduct">
-	<div class="row">
-		<div class="col-md-8">
-			<input type="hidden" name="ID" id="ID" value="@Model.ID" />
+    <div class="row">
+        <div class="col-md-8">
+            <input type="hidden" name="ID" id="ID" value="@Model.ID" />
 
-			<div class="form-group">
-				<label>Name</label>
-				<input class="form-control" name="Name" id="Name" value="@Model.Name" />
-			</div>
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" name="Name" id="Name" value="@Model.Name" />
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input class="form-control" name="Price" id="Price" value="@Model.Price" />
+            </div>
+            <div class="form-group">
+                <label>Unit</label>
+                <input class="form-control" name="Unit" id="Price" value="@Model.Unit" />
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input class="form-control" name="Description" id="Description" value="@Model.Description" />
+            </div>
 
-			<div class="form-group">
-				<label>Description</label>
-				<input class="form-control" name="Description" id="Description" value="@Model.Description" />
-			</div>
 
-			<div class="form-group">
-				<label>Price</label>
-				<input class="form-control" name="Price" id="Price" value="@Model.Price" />
-			</div>
-			<div class="form-group">
-				<label>Image</label>
-				<input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
-				<input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
-			</div>
-		</div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
+                <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
+            </div>
+        </div>
 
-		<div class="col-md-4">
-			<div class="thumb">
-				<img src="@imageURL" class="img-thumbnail img-fluid" id="productImage" />
-			</div>
-		</div>
+        <div class="col-md-4">
+            <div class="thumb">
+                <img src="@Model.ImageURL" class="img-thumbnail img-fluid" id="productImage" />
+            </div>
+        </div>
 
-		<button type="button" class="btn btn-primary" id="updateBtn">Update</button>
-		<button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
-	</div>
+        <button type="button" class="btn btn-primary" id="updateBtn">Update</button>
+        <button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
+    </div>
 
 </form>
+
+<script>
+
+    $("#imageUpload").change(function () {
+		var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+		}
+
+		$.ajax({
+			type: 'POST',
+			url: '@Url.Action("UploadImage", "Shared")',
+			dataType: 'json',
+			data: formData,
+			contentType: false,
+			processData: false
+		})
+        .done(function (response) {
+        	console.log(response);
+
+        	if (response.Success) {
+        		$("#ImageURL").val(response.ImageURL);
+        		$("#productImage").attr("src", response.ImageURL);
+        	}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+    $("#updateBtn").click(function () {
+
+        //var idValue = $("#ID").val();
+        //var nameValue = $("#Name").val();
+        //var descriptionValue = $("#Description").val();
+        //var priceValue = $("#Price").val();
+        $.ajax({
+            type: 'POST',
+            url: '/Product/Edit',
+            data: $("#editProduct").serialize()
+            //data: {
+
+            //    ID: idValue,
+            //    Name: nameValue,
+            //    Description: descriptionValue,
+            //    Price: priceValue
+
+            //}
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+                $("#actionContainer").html("");
+
+                swal("Record updated Successfully.", {
+                                icon: "success",
+                            });
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+         focusAction("tableContainer");
+    });
+</script>

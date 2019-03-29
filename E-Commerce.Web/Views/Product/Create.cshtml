@@ -1,63 +1,136 @@
-﻿@model List<Category>
+﻿@model List<E_Commerce.Entities.Category>
 @{
-	ViewBag.Title = "Add New Product";
-	var imageURL = "/Content/images/system/placeholder-image.png";
+    ViewBag.Title = "Create";
+    var imageURL = "/Content/images/system/placeholder-image.png";
 }
 
-@*<h2>Create Product</h2>*@
+    <form id="createProduct">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="CategoryID" class="form-control">
+                        <option>Select One</option>
+                        @foreach (var category in Model)
+                        {
+                            if (category.isFeatured == true)
+                            {
+                                <option value="@category.ID">@category.Name</option>
+                            }
 
-<form id="createProduct">
-	<div class="row">
-		<div class="col-md-8">
-			<div class="form-group">
-				<label>Category</label>
-				<select name="CategoryID" class="form-control">
-					<option>Select One</option>
-					@foreach (var category in Model)
-					{
-						if (category.isFeatured == true)
-						{
-							<option value="@category.ID">@category.Name</option>
-						}
+                        }
 
+                    </select>
+                </div>
 
+                <div class="form-group">
+                    <label>Name</label>
 
-					}
+                    <input class="form-control" name="Name" id="Name" />
+                </div>
+                <div class="form-group">
+                    <label>Price</label>
+                    <input class="form-control" name="Price" id="Price" />
+                </div>
+                <div class="form-group">
+                    <label>Unit</label>
+                    <input class="form-control" name="Unit" id="Unit" />
+                </div>
 
-				</select>
-			</div>
-
-			<div class="form-group">
-				<label>Name</label>
-
-				<input class="form-control" name="Name" id="Name" />
-			</div>
-
-			<div class="form-group">
-				<label>Description</label>
-				<input class="form-control" name="Description" id="Description" />
-			</div>
-
-			<div class="form-group">
-				<label>Price</label>
-				<input class="form-control" name="Price" id="Price" />
-			</div>
-			<div class="form-group">
-				<label>Image</label>
-				<input name="ImageURL" id="ImageURL" type="hidden" />
-				<input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-
-			</div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="Description" id="Description"></textarea>
+                </div>
 
 
-			<button type="button" id="createBtn" class="btn btn-primary">Create</button>
-			<button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
-		</div>
-		<div class="col-md-4">
-			<div class="thumb">
-				<img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
-			</div>
-		</div>
-	</div>
-</form>
+                <div class="form-group">
+                    <label>Image</label>
+                    <input name="ImageURL" id="ImageURL" type="hidden" />
+                    <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
 
+                </div>
+
+
+                <button type="button" id="createBtn" class="btn btn-primary">Create</button>
+                <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
+            </div>
+            <div class="col-md-4">
+                <div class="thumb">
+                    <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+     $("#imageUpload").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL").val(response.ImageURL);
+        		    $("#productImage").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
+    });
+    $("#createBtn").click(function () {
+
+        var nameValue = $("#Name").val();
+        var descriptionValue = $("#Description").val();
+        var priceValue = $("#Price").val();
+        $.ajax({
+            type: 'POST',
+            url: '/Product/Create',
+            data: $("#createProduct").serialize()
+            //data: {
+
+            //    Name: nameValue,
+            //    Description: descriptionValue,
+            //    Price: priceValue
+
+            //}
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+                $("#actionContainer").html("");
+                 swal("Record Created Successfully.", {
+                    icon: "success",
+                 });
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+
+    });
+
+    $("#cancelBtn").click(function () {
+        $("#actionContainer").html("");
+         focusAction("tableContainer");
+    });
+    </script>

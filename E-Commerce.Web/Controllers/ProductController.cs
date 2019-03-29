@@ -1,8 +1,12 @@
-﻿using System;
+﻿using E_Commerce.Entities;
+using E_Commerce.Services;
+using E_Commerce.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace E_Commerce.Web.Controllers
 {
@@ -15,38 +19,62 @@ namespace E_Commerce.Web.Controllers
         }
         public ActionResult ProductTable()
         {
-            return View();
-        }
-		public ActionResult ProductDetails()
-		{
-			return View();
-		}
+            var Products = ProductService.Instance.GetProducts();
 
+            return PartialView(Products);
+        }
+		
 		[HttpGet]
         public ActionResult Create()
         {
-            return View();
+            var categories = CategoryService.Instance.GetCategories();
+            return PartialView(categories);
         }
         [HttpPost]
-        public ActionResult Create(int i)
+        public ActionResult Create(NewProductViewModels model)
         {
-            return View();
+            var newProduct = new Product();
+            newProduct.Name = model.Name;
+            newProduct.Description = model.Description;
+            newProduct.Price = model.Price;
+            newProduct.Unit = model.Unit;
+            newProduct.Category = CategoryService.Instance.GetCategory(model.CategoryID);
+            newProduct.ImageURL = model.ImageURL;
+
+            ProductService.Instance.CreateProduct(newProduct);
+            return RedirectToAction("ProductTable");
         }
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int ID)
         {
-            return View();
+            EditProductViewModel model = new EditProductViewModel();
+            var product = ProductService.Instance.GetProduct(ID);
+            model.ID = product.ID;
+            model.Name = product.Name;
+            model.Description = product.Description;
+            model.Price = product.Price;
+            model.Unit = product.Unit;
+            model.ImageURL = product.ImageURL;
+            return PartialView(model);
         }
         [HttpPost]
-        public ActionResult Edit(int i)
+        public ActionResult Edit(EditProductViewModel model)
         {
-            return View();
+            var existingProduct = ProductService.Instance.GetProduct(model.ID);
+            existingProduct.Name = model.Name;
+            existingProduct.Price = model.Price;
+            existingProduct.Unit = model.Unit;
+            existingProduct.Description = model.Description;
+            existingProduct.ImageURL = model.ImageURL;
+            ProductService.Instance.UpdateProduct(existingProduct);
+            return RedirectToAction("ProductTable");
         }
 
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(int ID)
         {
-            return View();
+            ProductService.Instance.DeleteProduct(ID);
+            return RedirectToAction("ProductTable");
         }
     }
 }
