@@ -17,8 +17,12 @@ namespace E_Commerce.Web.Controllers
         {
             return View();
         }
+		public ActionResult ProductDetails()
+		{
+			return View();
+		}
 
-        [HttpGet]
+		[HttpGet]
         public ActionResult Create()
         {
             return View();

@@ -1,7 +1,67 @@
-﻿
+﻿@model List<Category>
 @{
-    ViewBag.Title = "CategoryTable";
+	ViewBag.Title = "CategoryTable";
 }
 
-<h2>CategoryTable</h2>
+<div class="container">
 
+	<div class="row">
+		<div class="col-sm-8">
+			<form method="post">
+				<div class="form-group">
+					<input placeholder="Search...." class="form-control" id="searchTxt" name="Search" />
+
+				</div>
+			</form>
+
+		</div>
+		<div class="col-sm-4">
+			<button type="button" id="searchBtn" class="btn">Search</button>
+
+		</div>
+
+	</div>
+
+
+
+	<button id="newBtn" class="btn btn-success">New Categoty</button>
+</div>
+<hr />
+<div>
+	<table class="table table-hover">
+		<thead>
+			<tr class="font-weight-bold">
+				<td>Name</td>
+				@*<td>Description</td>*@
+				<td>Items</td>
+				<td>View</td>
+
+				<td colspan="2">Actions</td>
+			</tr>
+
+		</thead>
+		<tbody>
+
+			@foreach (var category in Model)
+			{
+				<tr>
+					<td>@category.Name</td>
+					@*<td>@category.Description</td>*@
+					<td>@category.Products.Count</td>
+					@{
+						String show = category.isFeatured == true ? "Live" : "Hide";
+					}
+					<td>@show</td>
+
+					<td>
+						<button class="editBtn btn btn-success" data-id="@category.ID">Edit</button>
+						<button class="deleteBtn btn btn-danger" data-id="@category.ID">Delete</button>
+					</td>
+				</tr>
+
+			}
+
+
+		</tbody>
+	</table>
+</div>

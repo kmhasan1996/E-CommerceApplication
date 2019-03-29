@@ -1,7 +1,41 @@
-﻿
-@{
-    ViewBag.Title = "Create";
+﻿@{
+	ViewBag.Title = "Create";
+	var imageURL = "/Content/images/system/placeholder-image.png";
 }
+<h2>Create Category</h2>
+<form id="createCategory">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group">
+				<label>Name</label>
+				<input class="form-control" name="Name" />
+			</div>
 
-<h2>Create</h2>
+			<div class="form-group">
+				<label>Description</label>
+				<textarea class="form-control" name="Description" rows="2" cols="2"></textarea>
+			</div>
 
+			<div class="form-group">
+				<label>Image</label>
+				<input name="ImageURL" id="ImageURL" type="hidden" />
+				<input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
+
+			</div>
+
+			<div class="form-group">
+				<label>Showing</label>
+				<input name="isFeatured" type="radio" value="True" checked />Live
+				<input name="isFeatured" type="radio" value="False" />Hide
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="thumb">
+				<img class="img-thumbnail img-fluid" id="categoryImage" src="@imageURL" />
+			</div>
+		</div>
+
+		<button id="createBtn" type="button" class="btn btn-primary">Create</button>
+		<button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
+	</div>
+</form>

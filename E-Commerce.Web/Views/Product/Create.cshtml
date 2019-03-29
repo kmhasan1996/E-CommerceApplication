@@ -1,7 +1,63 @@
-﻿
+﻿@model List<Category>
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Add New Product";
+	var imageURL = "/Content/images/system/placeholder-image.png";
 }
 
-<h2>Create</h2>
+@*<h2>Create Product</h2>*@
+
+<form id="createProduct">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group">
+				<label>Category</label>
+				<select name="CategoryID" class="form-control">
+					<option>Select One</option>
+					@foreach (var category in Model)
+					{
+						if (category.isFeatured == true)
+						{
+							<option value="@category.ID">@category.Name</option>
+						}
+
+
+
+					}
+
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label>Name</label>
+
+				<input class="form-control" name="Name" id="Name" />
+			</div>
+
+			<div class="form-group">
+				<label>Description</label>
+				<input class="form-control" name="Description" id="Description" />
+			</div>
+
+			<div class="form-group">
+				<label>Price</label>
+				<input class="form-control" name="Price" id="Price" />
+			</div>
+			<div class="form-group">
+				<label>Image</label>
+				<input name="ImageURL" id="ImageURL" type="hidden" />
+				<input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
+
+			</div>
+
+
+			<button type="button" id="createBtn" class="btn btn-primary">Create</button>
+			<button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
+		</div>
+		<div class="col-md-4">
+			<div class="thumb">
+				<img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+			</div>
+		</div>
+	</div>
+</form>
 

@@ -1,7 +1,94 @@
-﻿
+﻿@model EcommerceApplication.ViweModels.ProductSearchViewModel
 @{
-    ViewBag.Title = "ProductTable";
+	ViewBag.Title = "ProductTable";
 }
+@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
-<h2>ProductTable</h2>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>*@
 
+<link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-sm-8">
+			<form method="post">
+				<div class="form-group">
+					<input placeholder="Search...." class="form-control" id="searchTxt" name="Search" />
+
+				</div>
+			</form>
+
+		</div>
+		<div class="col-sm-4">
+			<button type="button" id="searchBtn" class="btn">Search</button>
+
+		</div>
+
+	</div>
+
+
+
+	<button id="newBtn" class="btn btn-success">New Product</button>
+</div>
+<hr />
+<div>
+	<table id="ProductTable" class="table table-hover" style="width: 100%;">
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Description</td>
+				<td>Category</td>
+				<td>Price</td>
+				<td>Actions</td>
+			</tr>
+
+		</thead>
+		<tbody>
+			@if (Model.Products != null && Model.Products.Count > 0)
+			{
+				foreach (var product in Model.Products)
+				{
+					<tr>
+						<td>@product.Name</td>
+						<td>@product.Description</td>
+						<td>
+
+							@if (product.Category != null)
+							{
+								<text> @product.Category.Name</text>
+							}
+
+							else
+							{
+								<text>-</text>
+							}
+						<td>@product.Price</td>
+						<td>
+							<button class="editBtn btn btn-success" data-id="@product.ID">Edit</button>
+							<button class="deleteBtn btn btn-danger" data-id="@product.ID">Delete</button>
+							<button class="addtoCart btn" data-id="@product.ID">Add To Cart</button>
+						</td>
+					</tr>
+
+				}
+			}
+			else
+			{
+				<tr>
+					<td class="text-danger" colspan="4">No Products found.</td>
+				</tr>
+
+
+			}
+		</tbody>
+	</table>
+
+	@*<div>
+			<button class="pageButton" data-pageNo="@(Model.PageNo-1)">Previous</button>
+			<button class="pageButton" data-pageNo="@(Model.PageNo+1)">Next</button>
+		</div>*@
+
+
+</div>

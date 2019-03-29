@@ -1,7 +1,45 @@
-﻿
+﻿@model EcommerceApplication.ViweModels.EditProductViewModel
 @{
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Edit";
+	var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
+}
 }
 
-<h2>Edit</h2>
+<h2>Edit Product</h2>
+<form id="editProduct">
+	<div class="row">
+		<div class="col-md-8">
+			<input type="hidden" name="ID" id="ID" value="@Model.ID" />
 
+			<div class="form-group">
+				<label>Name</label>
+				<input class="form-control" name="Name" id="Name" value="@Model.Name" />
+			</div>
+
+			<div class="form-group">
+				<label>Description</label>
+				<input class="form-control" name="Description" id="Description" value="@Model.Description" />
+			</div>
+
+			<div class="form-group">
+				<label>Price</label>
+				<input class="form-control" name="Price" id="Price" value="@Model.Price" />
+			</div>
+			<div class="form-group">
+				<label>Image</label>
+				<input type="hidden" id="ImageURL" name="ImageURL" value="@Model.ImageURL" />
+				<input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="thumb">
+				<img src="@imageURL" class="img-thumbnail img-fluid" id="productImage" />
+			</div>
+		</div>
+
+		<button type="button" class="btn btn-primary" id="updateBtn">Update</button>
+		<button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
+	</div>
+
+</form>
