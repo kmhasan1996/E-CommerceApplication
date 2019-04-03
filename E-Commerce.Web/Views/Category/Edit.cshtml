@@ -7,6 +7,11 @@
 
 	var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/images/system/placeholder-image.png";
 }
+ <style>
+        .required {
+            color: red;
+        }
+    </style>
 <h2>Edit Category</h2>
 <form id="editCategory">
 	<input type="hidden" name="ID" value="@Model.ID" />
@@ -14,8 +19,8 @@
 	<div class="row">
 		<div class="col-md-8">
 			<div class="form-group">
-				<label>Name</label>
-				<input class="form-control" name="Name" value="@Model.Name" />
+				<label>Name<span class="required">*</span></label>
+				<input class="form-control" id="name" name="Name" value="@Model.Name" />
 			</div>
 			
 			<div class="form-group">
@@ -42,11 +47,37 @@
 		</div>
 	</div>
 
-	<button id="cat_UpdateBtn" type="button" class="btn btn-primary">Update</button>
+	<button id="cat_UpdateBtn" type="button" class="btn btn-primary" onclick="return validateForm();">Update</button>
 	<button id="cat_CancelBtn" type="button" class="btn btn-primary">Cancel</button>
 </form>
 
 <script>
+function validateForm() {
+        var name = document.getElementById("name").value;
+       
+        if (name == "") {
+
+            document.getElementById("nameErroeMessage").innerHTML = "Name must be filled out";
+            document.getElementById("nameErroeMessage").style.color = "red";
+
+        }
+       
+        else {
+                 $.ajax({
+			        type: 'POST',
+			        url: '@Url.Action("Edit", "Category")',
+			        data: $("#editCategory").serialize()
+		        })
+                .done(function (response) {
+        	        $("#categoryTableContainer").html(response);
+        	        $("#actionContainer").html("");
+        	        focusAction("categoryTableContainer");
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	        alert("FAIL");
+                });
+        }
+    }
 	$("#imageUpload").change(function () {
 		var element = this;
 
