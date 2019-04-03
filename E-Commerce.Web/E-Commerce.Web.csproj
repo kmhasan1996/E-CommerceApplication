@@ -423,6 +423,7 @@
     <Content Include="Content\images\instagram\instagram-4-337x280.jpg" />
     <Content Include="Content\images\instagram\instagram-5-337x280.jpg" />
     <Content Include="Content\images\logo%402x.png" />
+    <Content Include="Content\images\Logo.png" />
     <Content Include="Content\images\mainlogo.png" />
     <Content Include="Content\images\maps\map_icon.png" />
     <Content Include="Content\images\mega-menu\1.jpg" />
@@ -598,6 +599,8 @@
     <Content Include="Content\rev-slider\js\extensions\revolution.extension.video.min.js" />
     <Content Include="Content\rev-slider\js\jquery.themepunch.revolution.min.js" />
     <Content Include="Content\rev-slider\js\jquery.themepunch.tools.min.js" />
+    <Content Include="Content\Slider img\1.png" />
+    <Content Include="Content\Slider img\3.jpg" />
     <Content Include="Content\stylesheets\animate.css" />
     <Content Include="Content\stylesheets\bootstrap.css" />
     <Content Include="Content\stylesheets\colors\color1.css" />
