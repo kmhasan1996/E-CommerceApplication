@@ -12,43 +12,38 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group">
-                    <label>Category<span class="required">*</span></label>
-                    <select id="categorySelect" name="CategoryID" class="form-control">
-                        <option >Select One</option>
+                    <label>Category</label>
+                    <select name="CategoryID" class="form-control">
+                        <option>Select One</option>
                         @foreach (var category in Model)
                         {
                             if (category.isFeatured == true)
                             {
-                                <option  value="@category.ID">@category.Name</option>
+                                <option value="@category.ID">@category.Name</option>
                             }
 
                         }
 
                     </select>
-                    <p id="categorySelectErroeMessage"></p>
                 </div>
 
                 <div class="form-group">
                     <label>Name<span class="required">*</span></label>
 
                     <input class="form-control" name="Name" id="Name" />
-                    <p id="nameErroeMessage"></p>
                 </div>
                 <div class="form-group">
                     <label>Price<span class="required">*</span></label>
                     <input class="form-control" name="Price" id="Price" />
-                    <p id="priceErroeMessage"></p>
                 </div>
                 <div class="form-group">
                     <label>Unit<span class="required">*</span></label>
                     <input class="form-control" name="Unit" id="Unit" />
-                    <p id="unitErroeMessage"></p>
                 </div>
 
                 <div class="form-group">
                     <label>Description<span class="required">*</span></label>
                     <textarea class="form-control" name="Description" id="Description"></textarea>
-                    <p id="descriptionErroeMessage"></p>
                 </div>
 
 
@@ -56,7 +51,7 @@
                     <label>Image<span class="required">*</span></label>
                     <input name="ImageURL" id="ImageURL" type="hidden" />
                     <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-                    <p id="imageErroeMessage"></p>
+
                 </div>
 
 
@@ -71,7 +66,7 @@
         </div>
     </form>
     <script>
-    function validateForm() {
+        function validateForm() {
        var select=document.getElementById("categorySelect").value;
         var name = document.getElementById("Name").value;
         var price = document.getElementById("Price").value;
@@ -135,7 +130,6 @@
 
         }
     }
-
      $("#imageUpload").change(function () {
         var element = this;
 
@@ -173,11 +167,21 @@
 
     });
     //$("#createBtn").click(function () {
+
+    //    var nameValue = $("#Name").val();
+    //    var descriptionValue = $("#Description").val();
+    //    var priceValue = $("#Price").val();
     //    $.ajax({
     //        type: 'POST',
     //        url: '/Product/Create',
     //        data: $("#createProduct").serialize()
-            
+    //        //data: {
+
+    //        //    Name: nameValue,
+    //        //    Description: descriptionValue,
+    //        //    Price: priceValue
+
+    //        //}
     //    })
     //        .done(function (response) {
     //            $("#tableContainer").html(response);

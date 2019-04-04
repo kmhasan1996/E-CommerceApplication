@@ -14,9 +14,9 @@
         <div class="col-md-8">
             <div class="form-group">
                 <label>Name<span class="required">*</span></label>
-                <input class="form-control" name="Name" id="name" />
-                <p id="nameErroeMessage"></p>
-            </div>
+                <input class="form-control" name="Name" id="name"/>
+				<p id="nameErroeMessage"></p>
+			</div>
 
            
 
@@ -24,7 +24,7 @@
                 <label>Image<span class="required">*</span></label>
                 <input name="ImageURL" id="ImageURL" type="hidden" />
                 <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-                <p id="imageErroeMessage"></p>
+				<p id="imageErroeMessage"></p>
             </div>
 
             <div class="form-group">
@@ -39,14 +39,14 @@
             </div>
         </div>
 
-        <button id="createBtn" type="button" class="btn btn-primary" onclick="return validateForm();" >Create</button>
+        <button onclick="return validateForm();" id="createBtn" type="button" class="btn btn-primary">Create</button>
         <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
     </div>
 </form>
 
 <script>
 
-    function validateForm() {
+function validateForm() {
         var name = document.getElementById("name").value;
         var image = document.getElementById("imageUpload").value;
         if (name == "") {
@@ -83,8 +83,6 @@
                 });
         }
     }
-
-
     $("#imageUpload").change(function () {
         var element = this;
 
@@ -122,42 +120,9 @@
 
     });
 
-   
-    @*$("#createBtn").click(function () {
+    
 
-        //if ($("#createCategory").valid()) {
-
-
-            $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("Create", "Category")',
-                    data: $("#createCategory").serialize()
-                })
-                .done(function(response) {
-                    $("#categoryTableContainer").html(response);
-                    $("#actionContainer").html("");
-                    focusAction("categoryTableContainer");
-                })
-                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                    swal({
-                        title: "Warning",
-                        text: "Please enter all required fields.",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    });
-                });
-
-        //} else {
-        //    swal({
-        //        title: "Warning",
-        //        text: "Please enter all required fields.",
-        //        icon: "warning",
-        //        buttons: true,
-        //        dangerMode: true,
-        //    });
-        //}
-    });*@
+    
 
 
 
