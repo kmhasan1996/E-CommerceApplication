@@ -3,55 +3,64 @@
     ViewBag.Title = "Create";
     var imageURL = "/Content/images/system/placeholder-image.png";
 }
-
+    <style>
+        .required {
+            color: red;
+        }
+    </style>
     <form id="createProduct">
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group">
-                    <label>Category</label>
-                    <select name="CategoryID" class="form-control">
-                        <option>Select One</option>
+                    <label>Category<span class="required">*</span></label>
+                    <select id="categorySelect" name="CategoryID" class="form-control">
+                        <option >Select One</option>
                         @foreach (var category in Model)
                         {
                             if (category.isFeatured == true)
                             {
-                                <option value="@category.ID">@category.Name</option>
+                                <option  value="@category.ID">@category.Name</option>
                             }
 
                         }
 
                     </select>
+                    <p id="categorySelectErroeMessage"></p>
                 </div>
 
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Name<span class="required">*</span></label>
 
                     <input class="form-control" name="Name" id="Name" />
+                    <p id="nameErroeMessage"></p>
                 </div>
                 <div class="form-group">
-                    <label>Price</label>
+                    <label>Price<span class="required">*</span></label>
                     <input class="form-control" name="Price" id="Price" />
+                    <p id="priceErroeMessage"></p>
                 </div>
                 <div class="form-group">
-                    <label>Unit</label>
+                    <label>Unit<span class="required">*</span></label>
                     <input class="form-control" name="Unit" id="Unit" />
+                    <p id="unitErroeMessage"></p>
                 </div>
 
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>Description<span class="required">*</span></label>
                     <textarea class="form-control" name="Description" id="Description"></textarea>
+                    <p id="descriptionErroeMessage"></p>
                 </div>
 
 
                 <div class="form-group">
-                    <label>Image</label>
+                    <label>Image<span class="required">*</span></label>
                     <input name="ImageURL" id="ImageURL" type="hidden" />
                     <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-
+                    <p id="imageErroeMessage"></p>
                 </div>
 
 
-                <button type="button" id="createBtn" class="btn btn-primary">Create</button>
+                <button type="button" id="createBtn" class="btn btn-primary" onclick="return validateForm();">Create</button>
                 <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
             </div>
             <div class="col-md-4">
@@ -62,6 +71,71 @@
         </div>
     </form>
     <script>
+    function validateForm() {
+       var select=document.getElementById("categorySelect").value;
+        var name = document.getElementById("Name").value;
+        var price = document.getElementById("Price").value;
+        var unit = document.getElementById("Unit").value;
+        var description = document.getElementById("Description").value;
+       var image = document.getElementById("imageUpload").value;
+       
+        if (select == "Select One") {
+
+            document.getElementById("categorySelectErroeMessage").innerHTML = "Category must be select";
+            document.getElementById("categorySelectErroeMessage").style.color = "red";
+
+        }
+        else if (name == "") {
+
+            document.getElementById("nameErroeMessage").innerHTML = "Name must be filled out";
+            document.getElementById("nameErroeMessage").style.color = "red";
+
+        }
+       else if (price == "") {
+
+            document.getElementById("priceErroeMessage").innerHTML = "Price must be filled out";
+            document.getElementById("priceErroeMessage").style.color = "red";
+
+        }
+       else if (unit == "") {
+
+            document.getElementById("unitErroeMessage").innerHTML = "Unit must be filled out";
+            document.getElementById("unitErroeMessage").style.color = "red";
+
+        }
+       else if (description == "") {
+
+            document.getElementById("descriptionErroeMessage").innerHTML = "Description must be filled out";
+            document.getElementById("descriptionErroeMessage").style.color = "red";
+
+        }
+       else if (image == "") {
+
+            document.getElementById("imageErroeMessage").innerHTML = "Image must be upload";
+            document.getElementById("imageErroeMessage").style.color = "red";
+
+        }
+        else {
+            $.ajax({
+            type: 'POST',
+            url: '/Product/Create',
+            data: $("#createProduct").serialize()
+            
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+                $("#actionContainer").html("");
+                 swal("Record Created Successfully.", {
+                    icon: "success",
+                 });
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+        }
+    }
+
      $("#imageUpload").change(function () {
         var element = this;
 
@@ -98,36 +172,26 @@
 
 
     });
-    $("#createBtn").click(function () {
-
-        var nameValue = $("#Name").val();
-        var descriptionValue = $("#Description").val();
-        var priceValue = $("#Price").val();
-        $.ajax({
-            type: 'POST',
-            url: '/Product/Create',
-            data: $("#createProduct").serialize()
-            //data: {
-
-            //    Name: nameValue,
-            //    Description: descriptionValue,
-            //    Price: priceValue
-
-            //}
-        })
-            .done(function (response) {
-                $("#tableContainer").html(response);
-                $("#actionContainer").html("");
-                 swal("Record Created Successfully.", {
-                    icon: "success",
-                 });
-            })
-            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Fail");
-            });
+    //$("#createBtn").click(function () {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Product/Create',
+    //        data: $("#createProduct").serialize()
+            
+    //    })
+    //        .done(function (response) {
+    //            $("#tableContainer").html(response);
+    //            $("#actionContainer").html("");
+    //             swal("Record Created Successfully.", {
+    //                icon: "success",
+    //             });
+    //        })
+    //        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //            alert("Fail");
+    //        });
 
 
-    });
+    //});
 
     $("#cancelBtn").click(function () {
         $("#actionContainer").html("");

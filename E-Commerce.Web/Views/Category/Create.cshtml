@@ -3,23 +3,28 @@
     ViewBag.Title = "Create";
     var imageURL = "/Content/images/system/placeholder-image.png";
 }
-
+<style>
+    .required {
+    color: red;
+}
+</style>
 <h2>Create Category</h2>
 <form id="createCategory">
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
-                <label>Name</label>
-                <input class="form-control" name="Name" />
+                <label>Name<span class="required">*</span></label>
+                <input class="form-control" name="Name" id="name" />
+                <p id="nameErroeMessage"></p>
             </div>
 
            
 
             <div class="form-group">
-                <label>Image</label>
+                <label>Image<span class="required">*</span></label>
                 <input name="ImageURL" id="ImageURL" type="hidden" />
                 <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-
+                <p id="imageErroeMessage"></p>
             </div>
 
             <div class="form-group">
@@ -34,12 +39,52 @@
             </div>
         </div>
 
-        <button id="createBtn" type="button" class="btn btn-primary">Create</button>
+        <button id="createBtn" type="button" class="btn btn-primary" onclick="return validateForm();" >Create</button>
         <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
     </div>
 </form>
 
 <script>
+
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var image = document.getElementById("imageUpload").value;
+        if (name == "") {
+
+            document.getElementById("nameErroeMessage").innerHTML = "Name must be filled out";
+            document.getElementById("nameErroeMessage").style.color = "red";
+
+        }
+       else if (image == "") {
+
+            document.getElementById("imageErroeMessage").innerHTML = "Image must be upload";
+            document.getElementById("imageErroeMessage").style.color = "red";
+
+        }
+        else {
+             $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create", "Category")',
+                    data: $("#createCategory").serialize()
+                })
+                .done(function(response) {
+                    $("#categoryTableContainer").html(response);
+                    $("#actionContainer").html("");
+                    focusAction("categoryTableContainer");
+                })
+                .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                    swal({
+                        title: "Warning",
+                        text: "Please enter all required fields.",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    });
+                });
+        }
+    }
+
+
     $("#imageUpload").change(function () {
         var element = this;
 
@@ -77,30 +122,8 @@
 
     });
 
-    //$("#createCategory").validate({
-    //    rules: {
-    //        Name: {
-    //            required: true,
-    //            minlength: 5,
-    //            maxlength: 50,
-    //        },
-    //        Description: {
-    //            maxlength: 500
-    //        }
-    //    },
-    //    messages: {
-    //        Name: {
-    //            required: 'Name is required',
-    //            minlength: 'Minimum Length is 5',
-    //            maxlength: 'Maximum Length is 50'
-    //        },
-    //        Description: {
-    //            maxlength: 'Maximum Length is 500'
-    //        }
-    //    }
-    //});
-
-    $("#createBtn").click(function () {
+   
+    @*$("#createBtn").click(function () {
 
         //if ($("#createCategory").valid()) {
 
@@ -134,7 +157,7 @@
         //        dangerMode: true,
         //    });
         //}
-    });
+    });*@
 
 
 
