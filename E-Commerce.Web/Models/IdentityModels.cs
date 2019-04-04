@@ -33,6 +33,12 @@ namespace E_Commerce.Web.Models
             return userIdentity;
         }
     }
+    public class ApplicationRole : IdentityRole
+    {
+        public ApplicationRole() : base(){ }
+        public ApplicationRole(string roleName) : base(roleName) { }
+
+    }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -45,5 +51,7 @@ namespace E_Commerce.Web.Models
         {
             return new ApplicationDbContext();
         }
+
+      
     }
 }

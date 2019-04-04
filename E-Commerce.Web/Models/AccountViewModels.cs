@@ -64,6 +64,8 @@ namespace E_Commerce.Web.Models
 
     public class RegisterViewModel
     {
+        public string RoleName { get; set; }
+
         [Required]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
@@ -94,6 +96,7 @@ namespace E_Commerce.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        
     }
 
     public class ResetPasswordViewModel
