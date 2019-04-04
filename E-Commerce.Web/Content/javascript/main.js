@@ -834,3 +834,16 @@
       flatContentBox();
    	});
 })(jQuery);
+
+function updateCartProducts() {
+    var cartProducts;
+    var existingCookiesData = $.cookie('CartProducts');
+
+    if (existingCookiesData != undefined && existingCookiesData != "" && existingCookiesData != null) {
+        cartProducts = existingCookiesData.split('-');
+    }
+    else {
+        cartProducts = [];
+    }
+    $("#cartProductCount").html(cartProducts.length);
+}
