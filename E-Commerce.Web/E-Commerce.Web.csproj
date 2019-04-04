@@ -214,6 +214,7 @@
     <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_both.png" />
     <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_desc.png" />
     <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\Bootstrap-3-Typeahead.js" />
     <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.js" />
     <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
     <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.js" />

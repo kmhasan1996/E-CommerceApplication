@@ -14,6 +14,7 @@ namespace E_Commerce.Entities
         public string ImageURL { get; set; }
         public decimal Price { get; set; }
         public decimal Unit { get; set; }
+        public decimal Weight { get; set; }
         public virtual Category Category { get; set; }
     }
 }

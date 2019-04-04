@@ -37,6 +37,7 @@ namespace E_Commerce.Web.Controllers
             newProduct.Name = model.Name;
             newProduct.Description = model.Description;
             newProduct.Price = model.Price;
+            newProduct.Weight = model.Weight;
             newProduct.Unit = model.Unit;
             newProduct.Category = CategoryService.Instance.GetCategory(model.CategoryID);
             newProduct.ImageURL = model.ImageURL;
@@ -53,6 +54,7 @@ namespace E_Commerce.Web.Controllers
             model.Name = product.Name;
             model.Description = product.Description;
             model.Price = product.Price;
+            model.Weight = product.Weight;
             model.Unit = product.Unit;
             model.ImageURL = product.ImageURL;
             return PartialView(model);
@@ -63,6 +65,7 @@ namespace E_Commerce.Web.Controllers
             var existingProduct = ProductService.Instance.GetProduct(model.ID);
             existingProduct.Name = model.Name;
             existingProduct.Price = model.Price;
+            existingProduct.Weight = model.Weight;
             existingProduct.Unit = model.Unit;
             existingProduct.Description = model.Description;
             existingProduct.ImageURL = model.ImageURL;

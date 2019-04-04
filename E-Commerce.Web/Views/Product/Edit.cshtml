@@ -15,18 +15,28 @@
             <div class="form-group">
                 <label>Name<span class="required">*</span></label>
                 <input class="form-control" name="Name" id="Name" value="@Model.Name" />
+                <p id="nameErroeMessage"></p>
             </div>
             <div class="form-group">
-                <label>Price<span class="required">*</span></label>
-                <input class="form-control" name="Price" id="Price" value="@Model.Price" />
+                <label>Weight<span class="required">*</span></label>
+                <input class="form-control" name="Weight" id="Weight" value="@Model.Weight" />
+                <p id="weightErroeMessage"></p>
             </div>
             <div class="form-group">
                 <label>Unit<span class="required">*</span></label>
                 <input class="form-control" name="Unit" id="Unit" value="@Model.Unit" />
+                <p id="unitErroeMessage"></p>
             </div>
+            <div class="form-group">
+                <label>Price/Unit<span class="required">*</span></label>
+                <input class="form-control" name="Price" id="Price" value="@Model.Price" />
+                <p id="priceErroeMessage"></p>
+            </div>
+
             <div class="form-group">
                 <label>Description<span class="required">*</span></label>
                 <input class="form-control" name="Description" id="Description" value="@Model.Description" />
+                <p id="descriptionErroeMessage"></p>
             </div>
 
 
@@ -54,6 +64,7 @@
 
         var name = document.getElementById("Name").value;
         var price = document.getElementById("Price").value;
+        var weight= document.getElementById("Weight").value;
         var unit = document.getElementById("Unit").value;
         var description = document.getElementById("Description").value;
 
@@ -68,6 +79,12 @@
 
             document.getElementById("priceErroeMessage").innerHTML = "Price must be filled out";
             document.getElementById("priceErroeMessage").style.color = "red";
+
+         }
+       else if (weight == "") {
+
+            document.getElementById("weightErroeMessage").innerHTML = "Weight must be filled out";
+            document.getElementById("weightErroeMessage").style.color = "red";
 
         }
        else if (unit == "") {
@@ -138,39 +155,7 @@
         	alert("FAIL");
         });
 	});
-    //$("#updateBtn").click(function () {
-
-    //    //var idValue = $("#ID").val();
-    //    //var nameValue = $("#Name").val();
-    //    //var descriptionValue = $("#Description").val();
-    //    //var priceValue = $("#Price").val();
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Product/Edit',
-    //        data: $("#editProduct").serialize()
-    //        //data: {
-
-    //        //    ID: idValue,
-    //        //    Name: nameValue,
-    //        //    Description: descriptionValue,
-    //        //    Price: priceValue
-
-    //        //}
-    //    })
-    //        .done(function (response) {
-    //            $("#tableContainer").html(response);
-    //            $("#actionContainer").html("");
-
-    //            swal("Record updated Successfully.", {
-    //                            icon: "success",
-    //                        });
-    //        })
-    //        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-    //            alert("Fail");
-    //        });
-
-
-    //});
+    
 
     $("#cancelBtn").click(function () {
         $("#actionContainer").html("");

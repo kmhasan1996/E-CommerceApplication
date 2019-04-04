@@ -5,7 +5,7 @@
 
 <link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
 <script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
-
+<script src="~/Content/DataTables/DataTables-1.10.18/js/Bootstrap-3-Typeahead.js"></script>
 
 <div class="container">
 
@@ -48,7 +48,36 @@
 </div>
 <script>
 
-    $('#CategoryTable').DataTable();
+   $(document).ready(function() {
+   var dataSrc = [];
+
+   var table = $('#CategoryTable').DataTable({
+      'initComplete': function(){
+         var api = this.api();
+
+         // Populate a dataset for autocomplete functionality
+         // using data from first, second and third columns // api.cells('tr', [0, 1, 2])
+         api.cells('tr', [0]).every(function(){
+            // Get cell data as plain text
+            var data = $('<div>').html(this.data()).text();           
+            if(dataSrc.indexOf(data) === -1){ dataSrc.push(data); }
+         });
+         
+         // Sort dataset alphabetically
+         dataSrc.sort();
+        
+         // Initialize Typeahead plug-in
+         $('.dataTables_filter input[type="search"]', api.table().container())
+            .typeahead({
+               source: dataSrc,
+               afterSelect: function(value){
+                  api.search(value).draw();
+               }
+            }
+         );
+      }
+   });
+});
 
     
     $("#newBtn").click(function () {

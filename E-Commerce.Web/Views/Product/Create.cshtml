@@ -13,7 +13,7 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label>Category</label>
-                    <select name="CategoryID" class="form-control">
+                    <select id="categorySelect" name="CategoryID" class="form-control">
                         <option>Select One</option>
                         @foreach (var category in Model)
                         {
@@ -25,25 +25,35 @@
                         }
 
                     </select>
+                    <p id="categorySelectErroeMessage"></p>
                 </div>
 
                 <div class="form-group">
                     <label>Name<span class="required">*</span></label>
-
                     <input class="form-control" name="Name" id="Name" />
+                    <p id="nameErroeMessage"></p>
                 </div>
                 <div class="form-group">
-                    <label>Price<span class="required">*</span></label>
-                    <input class="form-control" name="Price" id="Price" />
+                    <label>Weight<span class="required">*</span></label>
+                    <input class="form-control" name="Weight" id="Weight" />
+                    <p id="weightErroeMessage"></p>
                 </div>
                 <div class="form-group">
                     <label>Unit<span class="required">*</span></label>
                     <input class="form-control" name="Unit" id="Unit" />
+                    <p id="unitErroeMessage"></p>
                 </div>
+                <div class="form-group">
+                    <label>Price/Unit<span class="required">*</span></label>
+                    <input class="form-control" name="Price" id="Price" />
+                    <p id="priceErroeMessage"></p>
+                </div>
+
 
                 <div class="form-group">
                     <label>Description<span class="required">*</span></label>
                     <textarea class="form-control" name="Description" id="Description"></textarea>
+                    <p id="descriptionErroeMessage"></p>
                 </div>
 
 
@@ -51,7 +61,7 @@
                     <label>Image<span class="required">*</span></label>
                     <input name="ImageURL" id="ImageURL" type="hidden" />
                     <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
-
+                    <p id="imageErroeMessage"></p>
                 </div>
 
 
@@ -71,6 +81,7 @@
         var name = document.getElementById("Name").value;
         var price = document.getElementById("Price").value;
         var unit = document.getElementById("Unit").value;
+        var weight= document.getElementById("Weight").value;
         var description = document.getElementById("Description").value;
        var image = document.getElementById("imageUpload").value;
        
@@ -92,7 +103,13 @@
             document.getElementById("priceErroeMessage").style.color = "red";
 
         }
-       else if (unit == "") {
+       else if (weight == "") {
+
+            document.getElementById("weightErroeMessage").innerHTML = "Weight must be filled out";
+            document.getElementById("weightErroeMessage").style.color = "red";
+
+        }
+        else if (unit == "") {
 
             document.getElementById("unitErroeMessage").innerHTML = "Unit must be filled out";
             document.getElementById("unitErroeMessage").style.color = "red";

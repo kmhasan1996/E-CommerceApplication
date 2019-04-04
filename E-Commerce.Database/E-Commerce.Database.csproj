@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201903290613367_addedThreeTableCategoryProductConfiguration.Designer.cs">
       <DependentUpon>201903290613367_addedThreeTableCategoryProductConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904041619477_addedWeightFieldonProduct.cs" />
+    <Compile Include="Migrations\201904041619477_addedWeightFieldonProduct.Designer.cs">
+      <DependentUpon>201904041619477_addedWeightFieldonProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903290613367_addedThreeTableCategoryProductConfiguration.resx">
       <DependentUpon>201903290613367_addedThreeTableCategoryProductConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904041619477_addedWeightFieldonProduct.resx">
+      <DependentUpon>201904041619477_addedWeightFieldonProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

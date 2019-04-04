@@ -12,6 +12,7 @@ namespace E_Commerce.Web.ViewModels
             public String Description { get; set; }
             public decimal Price { get; set; }
             public decimal Unit { get; set; }
+            public decimal Weight { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
         }
@@ -22,6 +23,7 @@ namespace E_Commerce.Web.ViewModels
             public string Name { get; set; }
             public string Description { get; set; }
             public decimal Price { get; set; }
+            public decimal Weight { get; set; }
             public decimal Unit { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
