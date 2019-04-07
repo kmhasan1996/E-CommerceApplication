@@ -47,9 +47,9 @@
                             Sort By
                         </h5>
                         <ul>
-                            <li><a href="" >Default - Newest</a></li>
-                            <li><a href="" >Price: low to high</a></li>
-                            <li><a href="" >Price: high to low</a></li>
+                            <li><a href="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.Default})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Default ? "active" : string.Empty : string.Empty)">Default - Newest</a></li>
+                            <li><a href="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PricLowToHigh})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PricLowToHigh ? "active" : string.Empty : string.Empty)">Price: low to high</a></li>
+                            <li><a href="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PriceHighToLow})" class="@(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "active" : string.Empty : string.Empty)">Price: high to low</a></li>
                         </ul>
                     </div>
 
@@ -66,7 +66,7 @@
                 </div><!-- /.sidebar -->
             </div><!-- /.col-md-3 -->
             <div class="col-md-9">
-            
+
                 <div class="product-content product-threecolumn product-slidebar clearfix">
                     <ul class="product style2 sd1">
                         @if (Model.Products.Count > 0)
@@ -101,11 +101,11 @@
 
                         else
                         {
-                            <hr />
-                            <h3>No product found</h3>
+                            @*<hr />
+                            <h3>No product found</h3>*@
                         }
 
-                    
+                    </ul>
                 </div><!-- /.product-content -->
                 <div id="productsDiv">
                     @*@{
@@ -120,4 +120,3 @@
         </div><!-- /.row -->
     </div><!-- /.container -->
 </section><!-- /.flat-row -->
-
