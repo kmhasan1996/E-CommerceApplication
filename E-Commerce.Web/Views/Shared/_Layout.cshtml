@@ -91,7 +91,7 @@
                                     <div class="woocommerce-min-cart-wrap">
                                         <ul class="woocommerce-mini-cart cart_list product_list_widget ">
                                             <li class="woocommerce-mini-cart-item mini_cart_item">
-                                                <span>No Items in Shopping Cart</span>
+                                                <a href="@Url.Action("Checkout", "Shop")">Checkout</a>
                                             </li>
                                         </ul>
                                     </div><!-- /.widget_shopping_cart_content -->
@@ -109,18 +109,19 @@
                                     <ul class="submenu">
                                         @*@{
 
-                                            foreach (var category in Model.FeaturedCategories)
-                                            {
-                                                <li class="active"><a href="index.html">@category.Name</a></li>
-                                            }
-                                        }*@
+                    foreach (var category in Model.FeaturedCategories)
+                    {
+                        <li class="active"><a href="index.html">@category.Name</a></li>
+                    }
+                }*@
 
-                                        
+
                                     </ul>
                                 </li>
 
                                 <li><a href="@Url.Action("Index", "Category")">Category</a></li>
                                 <li><a href="@Url.Action("Index", "Product")">Product</a></li>
+
                                 <li>
                                     <a href="@Url.Action("Index", "Shop")">SHOP</a>
                                     @*<ul class="submenu">
@@ -141,7 +142,7 @@
             </ul>*@
                                 </li>
 
-
+                                <li><a href="@Url.Action("Checkout", "Shop")">Checkout</a></li>
                                 <li>
                                     <a href="#">CONTACT</a>
                                     <ul class="submenu right-submenu">

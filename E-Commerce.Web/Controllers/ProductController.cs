@@ -79,5 +79,15 @@ namespace E_Commerce.Web.Controllers
             ProductService.Instance.DeleteProduct(ID);
             return RedirectToAction("ProductTable");
         }
+
+        [HttpGet]
+        public ActionResult ProductDetails(int ID)
+
+        {
+            ProductDetailModel model = new ProductDetailModel();
+            model.Product = ProductService.Instance.GetProduct(ID);
+
+            return View(model);
+        }
     }
 }

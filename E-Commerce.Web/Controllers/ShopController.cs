@@ -44,7 +44,7 @@ namespace E_Commerce.Web.Controllers
                 model.CartProductIDs = CartproductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
                 model.CartProducts = ProductService.Instance.GetCartProducts(model.CartProductIDs);
             }
-            return View();
+            return View(model);
             
         }
     }

@@ -721,6 +721,7 @@
     <Content Include="Views\Widgets\Products.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\FilterProduct.cshtml" />
+    <Content Include="Views\Shop\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

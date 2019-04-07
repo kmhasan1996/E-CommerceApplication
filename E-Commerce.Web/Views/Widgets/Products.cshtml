@@ -1,5 +1,6 @@
 ﻿
 @model E_Commerce.Web.ViewModels.ProductWidgetViewmodel
+
 @if (Model != null && Model.Products != null)
 {
     if (Model.IsLatestProduct ==true && Model.ByCategory == false)
@@ -11,7 +12,7 @@
                 {
                     <li class="product-item" style="padding-left:10px;">
                         <div class="product-thumb clearfix">
-                            <a href="#" class="product-thumb">
+                            <a href="@Url.Action("ProductDetails", "Product", new { ID = product.ID })" class="product-thumb">
                                 <img src="@product.ImageURL" style="padding-bottom: 15px;" alt="image">
                             </a>
 
@@ -41,7 +42,7 @@
         </div>
 
     }
-    @*else if (Model.ByCategory)
+    else if (Model.ByCategory)
     {
         <div class="product-content product-fourcolumn clearfix">
             <ul class="product style2  clearfix">
@@ -79,7 +80,7 @@
             </ul>
         </div>
 
-    }*@
+    }
     else
     {
         <ul class="flat-filter style-1 text-center max-width-682 clearfix">
@@ -98,7 +99,7 @@
                 {
                     <li class="product-item @catProduct.Category.Name" style="padding-left:10px;">
                         <div class="product-thumb clearfix">
-                            <a href="#" class="product-thumb">
+                            <a href="@Url.Action("ProductDetails", "Product", new { ID = catProduct.ID })" class="product-thumb">
                                 <img src="@catProduct.ImageURL" style="padding-bottom: 15px;" alt="image">
                             </a>
                             @if (Model.IsLatestProduct)
