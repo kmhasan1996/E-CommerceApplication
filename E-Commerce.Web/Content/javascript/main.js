@@ -847,3 +847,33 @@ function updateCartProducts() {
     }
     $("#cartProductCount").html(cartProducts.length);
 }
+
+
+    var products;
+    updateCartProducts();
+
+    $(".productAddTocart").click(function () {
+        var existingCookiesData = $.cookie('CartProducts');
+
+        if (existingCookiesData != undefined && existingCookiesData != "" && existingCookiesData!=null) {
+        products = existingCookiesData.split('-');
+        }
+        else {
+        products = [];
+        }
+
+    var productID = $(this).attr('data-id');
+ 
+
+    products.push(productID);
+
+        $.cookie('CartProducts', products.join('-'), {path: '/' });
+        updateCartProducts();
+
+        swal({
+        title: "Done",
+    text: "Product Added to Cart.",
+    icon: "success"
+})
+
+});

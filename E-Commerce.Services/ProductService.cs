@@ -30,6 +30,61 @@ namespace E_Commerce.Services
         }
         #endregion
 
+
+        public List<Product> SearchProduct(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        {
+            using (var context = new EAContext())
+            {
+                var products = context.Products.Where(x => x.Category.isFeatured == true).ToList();
+
+                if (categoryID.HasValue)
+                {
+                    products = products.Where(x => x.Category.ID == categoryID.Value).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(searchTxt))
+                {
+                    products = products.Where(x => x.Name.ToLower().Contains(searchTxt.ToLower())).ToList();
+                }
+
+                if (minimumPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price >= minimumPrice.Value).ToList();
+                }
+
+                if (maximumPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price <= maximumPrice.Value).ToList();
+                }
+
+
+
+                if (sortBy.HasValue)
+                {
+                    switch (sortBy.Value)
+                    {
+                        case 2:
+                            products = products.OrderBy(x => x.Price).ToList();
+                            break;
+                        case 3:
+                            products = products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                        default:
+                            products = products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                    }
+                }
+
+                return products.ToList();
+            }
+        }
+        public int GetMaximumPrice()
+        {
+            using (var context = new EAContext())
+            {
+                return (int)(context.Products.Max(x => x.Price));
+            }
+        }
         public Product GetProduct(int id)
         {
             using (var context = new EAContext())
