@@ -1,5 +1,7 @@
 ﻿using E_Commerce.Services;
 using E_Commerce.Web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,31 @@ namespace E_Commerce.Web.Controllers
 {
     public class ShopController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         public ActionResult Index(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
         {
 	    ShopViewmodel model = new ShopViewmodel();
@@ -28,7 +55,8 @@ namespace E_Commerce.Web.Controllers
             return PartialView(model);
             
         }
-
+        
+        [Authorize]
         public ActionResult Checkout()
         {
 		CheckoutViewmodel model = new CheckoutViewmodel();
@@ -43,6 +71,7 @@ namespace E_Commerce.Web.Controllers
 
                 model.CartProductIDs = CartproductsCookie.Value.Split('-').Select(x => int.Parse(x)).ToList();
                 model.CartProducts = ProductService.Instance.GetCartProducts(model.CartProductIDs);
+                model.User = UserManager.FindById(User.Identity.GetUserId());
             }
             return View(model);
             

@@ -58,6 +58,19 @@ namespace E_Commerce.Services
             }
 
         }
+        public List<Category> GetCategoriesFood()
+        {
+            using (var context = new EAContext())
+            {
+                //return context.Categories.ToList();
+                return context.Categories
+                       .OrderBy(x => x.ID)
+
+                       .Include(x => x.FoodandMedicines)
+                       .ToList();
+            }
+
+        }
 
         public void CreateCategory(Category category)
         {

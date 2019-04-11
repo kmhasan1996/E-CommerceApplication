@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="FoodandMedicine.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

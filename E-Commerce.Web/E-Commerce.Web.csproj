@@ -180,6 +180,7 @@
     <Compile Include="Code\Enums.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\FoodandMedicineController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -199,6 +200,10 @@
     <Compile Include="Migrations\201904041408513_role.Designer.cs">
       <DependentUpon>201904041408513_role.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904100958494_update.cs" />
+    <Compile Include="Migrations\201904100958494_update.Designer.cs">
+      <DependentUpon>201904100958494_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -207,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\FoodandMedicinesViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ShopViewModel.cs" />
@@ -722,6 +728,12 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Shop\FilterProduct.cshtml" />
     <Content Include="Views\Shop\Checkout.cshtml" />
+    <Content Include="Views\FoodandMedicine\Index.cshtml" />
+    <Content Include="Views\FoodandMedicine\FoodandMedicineTable.cshtml" />
+    <Content Include="Views\FoodandMedicine\Create.cshtml" />
+    <Content Include="Views\FoodandMedicine\Edit.cshtml" />
+    <Content Include="Views\FoodandMedicine\UserIndex.cshtml" />
+    <Content Include="Views\FoodandMedicine\UserGetFoodandMedicine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -743,6 +755,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904041408513_role.resx">
       <DependentUpon>201904041408513_role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904100958494_update.resx">
+      <DependentUpon>201904100958494_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

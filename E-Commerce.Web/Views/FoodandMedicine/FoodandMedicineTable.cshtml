@@ -1,0 +1,201 @@
+﻿@model List<E_Commerce.Entities.FoodandMedicine>
+
+<link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/Bootstrap-3-Typeahead.js"></script>
+
+<div class="container">
+    @*<form method="post">
+        <input id="searchTxt" name="Search" />
+        <button type="button" id="sBtn">Search</button>
+    </form>*@
+    <button id="newBtn" class="btn btn-success">New Chart</button>
+</div>
+<hr />
+<div>
+    <table id="FoodTable" class="table table-hover" style="width: 100%;">
+        <thead>
+            <tr>
+                <td>Category</td>
+                <td>Month</td>
+                <td>MinWeight</td>
+                <td>MaxWeight</td>
+                @*<td>Food</td>
+                <td>Medicine</td>*@
+                <td>Actions</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var food in Model)
+                {
+                    <tr>
+                        <td>
+
+                            @if (food.Category != null)
+                            {
+                                <text> @food.Category.Name</text>
+                            }
+
+                            else
+                            {
+                                <text>-</text>
+                            }
+                        </td>
+                        <td>@food.Month</td>
+                        <td>@food.MinWeight</td>
+                        <td>@food.MaxWeight</td>
+                        @*<td>@food.Food</td>
+                        <td>@food.Medicine</td>*@
+
+
+
+                        <td>
+                            <button class="editBtn btn btn-success" data-id="@food.ID">Edit</button>
+                            <button class="deleteBtn btn btn-danger" data-id="@food.ID">Delete</button>
+                            @*<button class="addtoCart btn" data-id="@product.ID">Add To Cart</button>*@
+                        </td>
+                    </tr>
+
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-danger" colspan="4">No Products found.</td>
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+
+
+    //$('#FoodTable').DataTable();
+
+    $(document).ready(function () {
+        var dataSrc = [];
+
+        var table = $('#FoodTable').DataTable({
+            'initComplete': function () {
+                var api = this.api();
+
+                // Populate a dataset for autocomplete functionality
+                // using data from first, second and third columns // api.cells('tr', [0, 1, 2])
+                api.cells('tr', [0]).every(function () {
+                    // Get cell data as plain text
+                    var data = $('<div>').html(this.data()).text();
+                    if (dataSrc.indexOf(data) === -1) { dataSrc.push(data); }
+                });
+
+                // Sort dataset alphabetically
+                dataSrc.sort();
+
+                // Initialize Typeahead plug-in
+                $('.dataTables_filter input[type="search"]', api.table().container())
+                    .typeahead({
+                        source: dataSrc,
+                        afterSelect: function (value) {
+                            api.search(value).draw();
+                        }
+                    }
+                    );
+            }
+        });
+    });
+    $("#newBtn").click(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "/FoodandMedicine/Create",
+
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction("actionContainer");
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail food");
+            });
+
+
+    });
+
+    $(".editBtn").click(function () {
+
+        $.ajax({
+            type: "GET",
+            url: "/FoodandMedicine/Edit",
+            data: {
+                ID: $(this).attr('data-id')
+            }
+
+        })
+            .done(function (response) {
+                $("#actionContainer").html(response);
+                focusAction("actionContainer");
+
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+
+    });
+
+    $(".deleteBtn").click(function () {
+
+        var confirmDelete = confirm("Are you sure?");
+        if (confirmDelete) {
+
+            $.ajax({
+                type: "POST",
+                url: "/FoodandMedicine/Delete",
+                data: {
+                    ID: $(this).attr('data-id')
+                }
+
+            })
+                .done(function (response) {
+                    $("#tableContainer").html(response);
+                })
+                .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Fail");
+                });
+
+
+
+        }
+    });
+   
+    //$("#sBtn").click(function () {
+    //        alert("hi");
+
+    //    var searchValue =$("#searchTxt").val();
+
+    //$.ajax({
+    //        type: "GET",
+    //    url: "/FoodandMedicine/FoodandMedicineTable",
+    //data: {
+    //        search: searchValue
+    //    }
+    //    })
+    //.done(function (response) {
+    //        $("#tableContainer").html(response);
+    //    })
+    //.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //        alert("Fail");
+    //    });
+
+
+    //    });
+
+
+</script>

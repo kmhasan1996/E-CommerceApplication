@@ -1,0 +1,111 @@
+﻿@*@model List<E_Commerce.Entities.FoodandMedicine>*@
+
+@model E_Commerce.Web.ViewModels.UserFoodandMedicinesViewModel
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+<div class="form-group">
+
+    <form method="post">
+        <select id="opvalue" name="CategoryID" class="form-control">
+            <option >Select One</option>
+            @foreach (var category in Model.Categories)    //@*.Select(x=>x.Category.Name).Distinct()*@
+            {
+                if (category.Name!= null)
+                {
+                    <option  value="@category.ID">@category.Name</option>
+                }
+
+            }
+           
+        </select>
+        <input class="form-control" id="searchTxt" name="Search" placeholder="enter month" />
+        <input class="form-control" id="min" name="min" placeholder="enter min" />
+        <input class="form-control" id="max" name="max" placeholder="enter max" />
+        <button type="button" id="sBtn">Search</button>
+    </form>
+
+</div>
+<div style="padding-top:10px;">
+    <table class="table table-hover">
+        @if (Model != null)
+        {
+            foreach (var item in Model.FoodandMedicines.Take(5))
+            {
+
+
+                <tr>
+                    <th>Name</th>
+                    <td>@item.Category.Name</td>
+                </tr>
+                <tr>
+                    <th>Month</th>
+                    <td>@item.Month month</td>
+                </tr>
+                <tr>
+                    <th>Weight</th>
+                    <td>@item.MinWeight  Kg to  @item.MaxWeight Kg</td>
+                </tr>
+                <tr>
+                    <th>Food</th>
+                    <td>@item.Food</td>
+                </tr>
+                <tr>
+                    <th>Medicine</th>
+                    <td>@item.Medicine</td>
+                </tr>
+
+            }
+        }
+        else
+        {
+            <tr>
+                <th>Error</th>
+                <td>no data found</td>
+            </tr>  
+            
+        }
+
+    </table>
+
+</div>
+
+<script>
+    $("#sBtn").click(function () {
+        //alert("hi");
+
+        var searchValue = $("#searchTxt").val();
+        var min = $("#min").val();
+        var max = $("#max").val();
+        var opval = $("#opvalue").val();
+        
+
+        $.ajax({
+            type: "GET",
+            url: "/FoodandMedicine/UserGetFoodandMedicine",
+            data: {
+                Category: opval,
+                search: searchValue,
+                MinWeight: min,
+                MaxWeight: max
+               
+            }
+        })
+            .done(function (response) {
+                $("#tableContainer").html(response);
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+
+    });
+</script>

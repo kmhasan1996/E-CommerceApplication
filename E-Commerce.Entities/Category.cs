@@ -12,6 +12,7 @@ namespace E_Commerce.Entities
         public string Name { get; set; }
         public string ImageURL { get; set; }
         public List<Product> Products { get; set; }
+        public List<FoodandMedicine> FoodandMedicines { get; set; }
         public Boolean isFeatured { get; set; }
     }
 }

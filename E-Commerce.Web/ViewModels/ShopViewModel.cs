@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Entities;
+using E_Commerce.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace E_Commerce.Web.ViewModels
     {
         public List<Product> CartProducts { get; set; }
         public List<int> CartProductIDs { get; set; }
+        public ApplicationUser User { get; set; }
+
 
     }
 
