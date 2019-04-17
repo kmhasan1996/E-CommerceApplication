@@ -105,6 +105,7 @@ namespace E_Commerce.Services
         {
             using (var context = new EAContext())
             {
+                context.Configuration.ProxyCreationEnabled = false;
                 return context.Products.OrderByDescending(x => x.ID).Where(x => x.Category.isFeatured == true).Include(x => x.Category).ToList();
                 
             }

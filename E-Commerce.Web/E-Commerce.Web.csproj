@@ -451,6 +451,7 @@
     <Content Include="Content\images\instagram\instagram-3-337x280.jpg" />
     <Content Include="Content\images\instagram\instagram-4-337x280.jpg" />
     <Content Include="Content\images\instagram\instagram-5-337x280.jpg" />
+    <Content Include="Content\images\livestock.png" />
     <Content Include="Content\images\logo%402x.png" />
     <Content Include="Content\images\Logo.png" />
     <Content Include="Content\images\mainlogo.png" />
@@ -602,6 +603,7 @@
     <Content Include="Content\javascript\jquery.min.js" />
     <Content Include="Content\javascript\magnific.popup.min.js" />
     <Content Include="Content\javascript\main.js" />
+    <Content Include="Content\javascript\Map.js" />
     <Content Include="Content\javascript\owl.carousel.min.js" />
     <Content Include="Content\javascript\parallax.js" />
     <Content Include="Content\javascript\rev-slider.js" />
@@ -734,6 +736,9 @@
     <Content Include="Views\FoodandMedicine\Edit.cshtml" />
     <Content Include="Views\FoodandMedicine\UserIndex.cshtml" />
     <Content Include="Views\FoodandMedicine\UserGetFoodandMedicine.cshtml" />
+    <Content Include="Views\Product\ProductOnMap.cshtml" />
+    <Content Include="Views\Shared\_nav.cshtml" />
+    <Content Include="Views\Home\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

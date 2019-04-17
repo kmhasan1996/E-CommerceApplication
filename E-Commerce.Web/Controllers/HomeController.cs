@@ -14,7 +14,8 @@ namespace E_Commerce.Web.Controllers
         {
             HomeViewModel model = new HomeViewModel();
 
-            model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategory();
+            //model.FeaturedCategories = CategoryService.Instance.GetFeaturedNotNullItemCategory();//GetFeaturedCategory();
+            model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategory();//GetFeaturedCategory();
             //model.FeaturedProducts = ProductService.Instance.GetProducts(1);
 
             return View(model);
@@ -33,5 +34,11 @@ namespace E_Commerce.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Faq()
+        {
+            return View();
+        }
+       
     }
 }

@@ -19,6 +19,7 @@
                 <td>Name</td>
                 <td>Items</td>
                 <td>View</td>
+                <td>Image</td>
                 <td>Actions</td>
             </tr>
         </thead>
@@ -26,19 +27,20 @@
 
             @foreach (var category in Model)
             {
-                <tr>
-                    <td>@category.Name</td>
-                    <td>@category.Products.Count</td>
-                    @{
-                        String show = category.isFeatured == true ? "Live" : "Hide";
-                    }
-                    <td>@show</td>
+            <tr>
+                <td>@category.Name</td>
+                <td>@category.Products.Count</td>
+                @{
+                    String show = category.isFeatured == true ? "Live" : "Hide";
+                }
+                <td>@show</td>
+                <td> <img src="@category.ImageURL" height="50" width="75" /></td>
 
-                    <td>
-                        <button class="editBtn btn btn-success" data-id="@category.ID">Edit</button>
-                        <button class="deleteBtn btn btn-danger" data-id="@category.ID">Delete</button>
-                    </td>
-                </tr>
+                <td>
+                    <button class="editBtn btn btn-success" data-id="@category.ID">Edit</button>
+                    <button class="deleteBtn btn btn-danger" data-id="@category.ID">Delete</button>
+                </td>
+            </tr>
 
             }
 

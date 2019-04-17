@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201904101030584_AddedFoodandMedicineTable.Designer.cs">
       <DependentUpon>201904101030584_AddedFoodandMedicineTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904121051479_addedlatLnginProductTAble.cs" />
+    <Compile Include="Migrations\201904121051479_addedlatLnginProductTAble.Designer.cs">
+      <DependentUpon>201904121051479_addedlatLnginProductTAble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904101030584_AddedFoodandMedicineTable.resx">
       <DependentUpon>201904101030584_AddedFoodandMedicineTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904121051479_addedlatLnginProductTAble.resx">
+      <DependentUpon>201904121051479_addedlatLnginProductTAble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

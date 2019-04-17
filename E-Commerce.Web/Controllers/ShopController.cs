@@ -40,7 +40,7 @@ namespace E_Commerce.Web.Controllers
         public ActionResult Index(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
         {
 	    ShopViewmodel model = new ShopViewmodel();
-            model.FeaturedCategories = CategoryService.Instance.GetFeaturedCategory();
+            model.FeaturedCategories = CategoryService.Instance.GetFeaturedNotNullItemCategory();
             model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
             model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
             model.SortBy = sortBy;

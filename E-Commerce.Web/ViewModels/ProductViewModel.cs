@@ -1,4 +1,5 @@
 ﻿using E_Commerce.Entities;
+using E_Commerce.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace E_Commerce.Web.ViewModels
             public decimal Weight { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
-        }
+            public string latitude { get; set; }
+            public string longitude { get; set; }
+    }
         public class EditProductViewModel
         {
             public int ID { get; set; }
@@ -28,11 +31,14 @@ namespace E_Commerce.Web.ViewModels
             public decimal Unit { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
-        }
+            public string latitude { get; set; }
+            public string longitude { get; set; }
+    }
 
     public class ProductDetailModel
     {
         public Product Product { get; set; }
+        public ApplicationUser User { get; set; }
     }
 
 }

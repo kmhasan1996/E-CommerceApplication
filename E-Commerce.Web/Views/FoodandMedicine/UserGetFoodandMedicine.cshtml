@@ -1,6 +1,10 @@
 ﻿@*@model List<E_Commerce.Entities.FoodandMedicine>*@
 
 @model E_Commerce.Web.ViewModels.UserFoodandMedicinesViewModel
+
+@{ 
+    var m = 0;
+}
 <style>
     table, th, td {
         border: 1px solid black;
@@ -15,51 +19,105 @@
 <div class="form-group">
 
     <form method="post">
-        <select id="opvalue" name="CategoryID" class="form-control">
-            <option >Select One</option>
-            @foreach (var category in Model.Categories)    //@*.Select(x=>x.Category.Name).Distinct()*@
-            {
-                if (category.Name!= null)
-                {
-                    <option  value="@category.ID">@category.Name</option>
-                }
+        <div class="row">
 
-            }
-           
-        </select>
-        <input class="form-control" id="searchTxt" name="Search" placeholder="enter month" />
-        <input class="form-control" id="min" name="min" placeholder="enter min" />
-        <input class="form-control" id="max" name="max" placeholder="enter max" />
-        <button type="button" id="sBtn">Search</button>
+            <div class="col-sm-3">
+               
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Category</label>
+                        <select id="opvalue" name="CategoryID" class="form-control">
+                            @*<option>Select One</option>*@
+                            @foreach (var category in Model.Categories)    //@*.Select(x=>x.Category.Name).Distinct()*@
+                            {
+                                if (category.Name != null)
+                                {
+
+                                    <option value="@category.ID">@category.Name</option>
+                                }
+
+                            }
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Years Old</label>
+                        <select id="searchTxt" name="CategoryID" class="form-control">
+                            @*<option>Select One</option>*@
+                            @for (var i = 1; i <= 4; i++)    //@*.Select(x=>x.Category.Name).Distinct()*@
+                            {
+                                m = m + 4;
+
+                                <option value="@m">@m Month</option>
+
+
+                            }
+
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-3">
+              
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Min Weight</label>
+                        <input class="form-control" id="min" name="min" placeholder="enter min" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Max Weight</label>
+                        <input class="form-control" id="max" name="max" placeholder="enter max" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-3" style="margin-top:36px;">
+
+                <button class="btn btn-success" type="button" id="sBtn">Search</button>
+
+            </div>
+
+        </div>
+        
+       
+        @*<input class="form-control" id="searchTxt" name="Search" placeholder="enter month" />*@
+       
+        
+      
     </form>
 
 </div>
 <div style="padding-top:10px;">
-    <table class="table table-hover">
+    <table class="table table-hover" >
         @if (Model != null)
         {
-            foreach (var item in Model.FoodandMedicines.Take(5))
+            foreach (var item in Model.FoodandMedicines.Take(1))
             {
 
 
                 <tr>
-                    <th>Name</th>
+                    <th style="font-weight:bold">Category</th>
                     <td>@item.Category.Name</td>
                 </tr>
                 <tr>
-                    <th>Month</th>
+                    <th style="font-weight:bold">Years Old</th>
                     <td>@item.Month month</td>
                 </tr>
                 <tr>
-                    <th>Weight</th>
+                    <th style="font-weight:bold">Weight</th>
                     <td>@item.MinWeight  Kg to  @item.MaxWeight Kg</td>
                 </tr>
                 <tr>
-                    <th>Food</th>
+                    <th style="font-weight:bold">Food</th>
                     <td>@item.Food</td>
                 </tr>
                 <tr>
-                    <th>Medicine</th>
+                    <th style="font-weight:bold">Medicine</th>
                     <td>@item.Medicine</td>
                 </tr>
 

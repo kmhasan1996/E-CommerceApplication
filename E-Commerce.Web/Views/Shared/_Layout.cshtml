@@ -28,7 +28,7 @@
 
 
     <!-- Favicon and touch icons  -->
-    <link href="favicon.png" rel="shortcut icon">
+    @*<link href="favicon.png" rel="shortcut icon">*@
 
     <!--[if lt IE 9]>
         <script src="javascript/html5shiv.js"></script>
@@ -36,6 +36,8 @@
     <![endif]-->
 
     <script src="~/Content/javascript/jquery.min.js"></script>
+
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 
 </head>
 <body class="header_sticky header-style-1 topbar-style-1 has-menu-extra">
@@ -51,7 +53,8 @@
                     <div class="top-bar-inner-wrap">
                         <div class="top-bar-content">
                             <span style="padding-right: 10px;" class="content fa fa-phone">+880 1749796054</span>
-                            <span class="content fa fa-envelope-o"> kmahidy@gmail.com</span>
+                            <span class="content fa fa-envelope-o"> livestock@gmail.com</span>
+                           
                         </div>
                         <div class="top-bar-nav">
                             <div class="inner">
@@ -64,26 +67,25 @@
             </div>
             <!-- End Top Bar -->
             <!-- Header -->
-            <header id="header" class="header header-container clearfix">
+            <header id="header" class="header header-container clearfix" style="background: #031D2C;">
                 <div class="container clearfix" id="site-header-inner">
+
+
                     <div id="logo" class="logo float-left">
-                        <a href="index.html" title="logo">
-                            <img src="~/Content/images/logo.png" alt="image" width="107" height="24" data-retina="" data-width="107" data-height="24">
+                        <a href="@Url.Action("Index", "Home")" title="logo">
+                            <img src="~/Content/images/livestock.png" alt="image" width="200" height="60" style="background-color:white;">
                         </a>
                     </div><!-- /.logo -->
                     <div class="mobile-button"><span></span></div>
                     <ul class="menu-extra">
-                        <li class="box-search">
-                            <a class="icon_search header-search-icon" href="#"></a>
+                        <li class="box-search" >
+                            <a class="icon_search header-search-icon" style="color:black;background-color:white;" href="#"></a>
                             <form role="search" method="get" class="header-search-form" action="@Url.Action("Index", "Shop")">
                                 <input type="text" value="" name="s" class="header-search-field" placeholder="Search...">
-                                <button type="submit" class="header-search-submit" title="Search">Search</button>
+                                <button type="submit"  class="header-search-submit" title="Search">Search</button>
                             </form>
                         </li>
-                        @*<li class="box-login">
-                                <a class="icon_login" href="#"></a>
 
-                            </li>*@
                         <li class="box-cart nav-top-cart-wrapper">
                             <a class="icon_cart nav-cart-trigger active" href="#"><span id="cartProductCount">0</span></a>
                             <div class="nav-shop-cart">
@@ -106,59 +108,42 @@
                             <ul class="menu">
                                 <li class="active">
                                     <a href="@Url.Action("Index", "Home")">HOME</a>
-                                    <ul class="submenu">
-                                        @*@{
 
-                    foreach (var category in Model.FeaturedCategories)
-                    {
-                        <li class="active"><a href="index.html">@category.Name</a></li>
-                    }
-                }*@
-
-
-                                    </ul>
                                 </li>
 
                                 <li><a href="@Url.Action("Index", "Category")">Category</a></li>
                                 <li><a href="@Url.Action("Index", "Product")">Product</a></li>
-                                <li><a href="@Url.Action("Index", "FoodandMedicine")">FoodandMedicine</a></li>
-                                <li><a href="@Url.Action("UserIndex", "FoodandMedicine")">UserFoodandMedicine</a></li>
+                                @*<li><a href="@Url.Action("Index", "FoodandMedicine")">Food</a></li>*@
+
+
 
                                 <li>
-                                    <a href="@Url.Action("Index", "Shop")">SHOP</a>
+                                    <a href="@Url.Action("Index", "Shop")">ALL CATEGORY</a>
                                     @*<ul class="submenu">
-                <li>
-                    <a href="shop-3col.html">Shop Layouts</a>
-                    <ul class="submenu">
-                        <li><a href="shop-3col.html">Three Columns</a></li>
-
-                    </ul>
-                </li>
-                <li>
-                    <a href="shop-detail-des.html">Shop Details</a>
-                    <ul class="submenu">
-                        <li><a href="shop-detail-des.html">Details Description</a></li>
-
-                    </ul>
-                </li>
-            </ul>*@
+                                        @Html.Partial("_nav")
+                                    </ul>*@
                                 </li>
 
-                                <li><a href="@Url.Action("Checkout", "Shop")">Checkout</a></li>
+
+                                @*<li><a href="@Url.Action("ProductOnMap", "Product")">PRODUCT MAP</a></li>*@
+                                <li><a href="@Url.Action("UserIndex", "FoodandMedicine")">FOOD & MEDICINE</a></li>
+                                @*<li><a href="@Url.Action("Checkout", "Shop")">CHECKOUT</a></li>*@
+
                                 <li>
                                     <a href="#">CONTACT</a>
                                     <ul class="submenu right-submenu">
                                         @*<li><a href="contact.html">Contact Style 1</a></li>
-                <li><a href="contact-v2.html">Contact Style 2</a></li>*@
+                                         <li><a href="contact-v2.html">Contact Style 2</a></li>*@
                                     </ul>
                                 </li>
+                                <li><a href="@Url.Action("Faq", "Home")">FAQ</a></li>
                             </ul>
                         </nav><!-- /.mainnav -->
                     </div><!-- /.nav-wrap -->
                 </div><!-- /.container-fluid -->
             </header><!-- /header -->
         </div><!-- /#site-header-wrap -->
-        @*@Html.Partial("_LoginPartial")*@
+
         @RenderBody()
 
         <section class="flat-row mail-chimp">
@@ -278,7 +263,7 @@
     <script src="~/Content/javascript/owl.carousel.min.js"></script>
     <script src="~/Content/javascript/equalize.min.js"></script>
     <script src="~/Content/javascript/gmap3.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>*@
     <script src="~/Content/javascript/jquery-ui.js"></script>
     <script src="~/Content/javascript/jquery.cookie.js"></script>
     <script src="~/Content/javascript/main.js"></script>
@@ -299,6 +284,9 @@
     <script src="~/Content/rev-slider/js/extensions/revolution.extension.video.min.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJcww05ydypEg66-bXbEKrRqZvsYFcYc&callback=drawMap"></script>*@
+
 
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")

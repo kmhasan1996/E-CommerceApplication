@@ -58,6 +58,16 @@ namespace E_Commerce.Services
             }
 
         }
+
+        public List<Category> GetFeaturedNotNullItemCategory()
+        {
+            using (var context = new EAContext())
+            {
+                return context.Categories.Where(x => x.isFeatured && x.Products.Count != 0 && x.ImageURL != null).ToList();
+            }
+
+        }
+
         public List<Category> GetCategoriesFood()
         {
             using (var context = new EAContext())

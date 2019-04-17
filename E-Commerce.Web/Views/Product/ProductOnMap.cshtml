@@ -1,0 +1,78 @@
+﻿@model List<E_Commerce.Entities.Product>
+@{
+    ViewBag.Title = "ProductOnMap";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @*<div class="flat-map"></div>*@
+            <div class="flat-map" id="mapArea"></div>
+        </div><!-- /.col-md-12 -->
+    </div>
+
+</div>
+
+<div>
+    @foreach (var product in Model)
+    {
+        <input type="hidden" id="productImg" value="@product.ImageURL" />
+        <input type="hidden" id="productName" value=" @product.Name" />
+        <input type="hidden" id="productLat" value=" @product.latitude" />
+        <input type="hidden" id="productLng" value=" @product.longitude" />
+        <script>
+            var select = document.getElementById("productImg").value;
+            var name = document.getElementById("productName").value;
+            var Lat = document.getElementById("productLat").value;
+            var Lng = document.getElementById("productLng").value;
+
+
+
+        </script>
+    }
+
+</div>
+<script>
+    function drawMap() {
+        //var select = document.getElementById("productImg").value;
+        //var name = document.getElementById("productName").value;
+        //var Lat = document.getElementById("productLat").value;
+        //var Lng = document.getElementById("productLng").value;
+        //var img = {
+        //    url: select, // url
+        //    scaledSize: new google.maps.Size(55, 40), // scaled size
+        //    origin: new google.maps.Point(0,0), // origin
+        //    anchor: new google.maps.Point(0, 0) // anchor
+        //};
+        //alert(select);
+        //var ll = 23.79804617762948;
+        //var lg = 90.44958227960831;
+        var uiu = new google.maps.LatLng(Lat, Lng);
+        map = new google.maps.Map(document.getElementById('mapArea'), {
+            center: uiu,
+            zoom: 15,
+            mapTypeId: 'hybrid'
+        });
+
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        var mk = new google.maps.Marker({
+            position: uiu,
+            map: map,
+            //icon: image
+        });
+
+        var contentString = '<img src="' + select + '" height="50" width="75" />' + '<h4>' + name + '</h4>';
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 200,
+            maxWidth: 400
+        });
+        infowindow.open(map, mk);
+        //     mk.addListener('click', function() {
+        //  infowindow.open(map, mk);
+        //});
+
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJcww05ydypEg66-bXbEKrRqZvsYFcYc&callback=drawMap"></script>

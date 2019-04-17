@@ -65,7 +65,7 @@
             <header id="header" class="header header-container clearfix">
                 <div class="container clearfix" id="site-header-inner">
                     <div id="logo" class="logo float-left">
-                        <a href="@Url.Action("Index", "Home")" title="logo">
+                        <a href="@Url.Action("Index", "Category")" title="logo">
                             <img src="~/Content/images/logo.png" alt="image" width="107" height="24" data-retina="" data-width="107" data-height="24">
                         </a>
                     </div><!-- /.logo -->
@@ -73,14 +73,15 @@
                     
                     <div class="nav-wrap">
                         <nav id="mainnav" class="mainnav">
-                            <ul class="menu" >
-                                
+                            <ul class="menu">
+
                                 @*<li><a href="@Url.Action("Index", "Home")">Home</a></li>*@
-                                <li><a href="@Url.Action("Index", "Category")">Category</a></li>
-                                <li><a href="@Url.Action("Index", "Product")">Product</a></li>
-                                <li><a href="@Url.Action("Index", "Role")">Role</a></li>
-                                
-                                
+                                <li><a href="@Url.Action("Index", "Category")">CATEGORY</a></li>
+                                <li><a href="@Url.Action("Index", "Product")">PRODUCT</a></li>
+                                <li><a href="@Url.Action("Index", "FoodandMedicine")">FOOD&MEDECINE</a></li>
+                                <li><a href="@Url.Action("Index", "Role")">ROLE</a></li>
+
+
                             </ul>
                         </nav><!-- /.mainnav -->
                     </div><!-- /.nav-wrap -->
@@ -125,7 +126,7 @@
     <script src="~/Content/javascript/owl.carousel.min.js"></script>
     <script src="~/Content/javascript/equalize.min.js"></script>
     <script src="~/Content/javascript/gmap3.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIEU6OT3xqCksCetQeNLIPps6-AYrhq-s&region=GB"></script>*@
     <script src="~/Content/javascript/jquery-ui.js"></script>
     <script src="~/Content/javascript/jquery.cookie.js"></script>
     <script src="~/Content/javascript/main.js"></script>

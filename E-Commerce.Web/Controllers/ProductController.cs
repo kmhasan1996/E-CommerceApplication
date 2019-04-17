@@ -1,6 +1,8 @@
 ﻿using E_Commerce.Entities;
 using E_Commerce.Services;
 using E_Commerce.Web.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,32 @@ namespace E_Commerce.Web.Controllers
 {
     public class ProductController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         // GET: Shared
         public ActionResult Index()
         {
@@ -41,6 +69,9 @@ namespace E_Commerce.Web.Controllers
             newProduct.Unit = model.Unit;
             newProduct.Category = CategoryService.Instance.GetCategory(model.CategoryID);
             newProduct.ImageURL = model.ImageURL;
+            newProduct.latitude = model.latitude;
+            newProduct.longitude = model.longitude;
+            
 
             ProductService.Instance.CreateProduct(newProduct);
             return RedirectToAction("ProductTable");
@@ -57,6 +88,8 @@ namespace E_Commerce.Web.Controllers
             model.Weight = product.Weight;
             model.Unit = product.Unit;
             model.ImageURL = product.ImageURL;
+            model.latitude = product.latitude;
+            model.longitude = product.longitude;
             return PartialView(model);
         }
         [HttpPost]
@@ -69,6 +102,9 @@ namespace E_Commerce.Web.Controllers
             existingProduct.Unit = model.Unit;
             existingProduct.Description = model.Description;
             existingProduct.ImageURL = model.ImageURL;
+            existingProduct.latitude = model.latitude;
+            existingProduct.longitude = model.longitude;
+
             ProductService.Instance.UpdateProduct(existingProduct);
             return RedirectToAction("ProductTable");
         }
@@ -86,8 +122,19 @@ namespace E_Commerce.Web.Controllers
         {
             ProductDetailModel model = new ProductDetailModel();
             model.Product = ProductService.Instance.GetProduct(ID);
+            model.User= UserManager.FindById(User.Identity.GetUserId());
 
             return View(model);
         }
+
+        public ActionResult ProductOnMap()
+
+        {
+            var Products = ProductService.Instance.GetProducts();
+
+            return View(Products);
+        }
+
+
     }
 }
