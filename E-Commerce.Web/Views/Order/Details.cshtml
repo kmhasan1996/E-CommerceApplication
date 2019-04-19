@@ -1,0 +1,48 @@
+﻿@model E_Commerce.Web.ViewModels.OrderDetailsViewModel
+
+@{
+                /**/
+
+                ViewBag.Title = "Details";
+}
+
+@if (Model != null && Model.Order != null)
+{
+    var i = 1;
+
+    
+    <script>
+	$("#changeStatus").change(function () {
+		$.ajax({
+			url: '@Url.Action("ChangeStatus", "Order")',
+			data: {
+				status: $("#changeStatus").val(),
+				ID: '@Model.Order.ID'
+			}
+		})
+        .done(function (response) {
+        	if(response.Success)
+        	{
+        		swal("Done", "Your Order has been updated.", "success").then((value) => {
+        			window.location = '@Url.Action("Index", "Order")';
+        		});
+        	}
+        	else {
+        		swal("Error", "Unable to update Order", "warning");
+        	}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+    </script>
+}
+else
+{
+    <div>
+        <b>Order Details not availble</b>
+    </div>
+}
+
+
+
