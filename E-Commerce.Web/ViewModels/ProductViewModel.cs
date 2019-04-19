@@ -41,4 +41,12 @@ namespace E_Commerce.Web.ViewModels
         public ApplicationUser User { get; set; }
     }
 
+	public class CreateReview
+    {
+        public string UserName { get; set; }
+        public decimal RatingPoint { get; set; }
+        public string ReviewMessage { get; set; }
+        public int ProductID { get; set; }
+    }
+
 }

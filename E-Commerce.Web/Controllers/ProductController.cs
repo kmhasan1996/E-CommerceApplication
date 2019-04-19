@@ -124,7 +124,23 @@ namespace E_Commerce.Web.Controllers
             model.Product = ProductService.Instance.GetProduct(ID);
             model.User= UserManager.FindById(User.Identity.GetUserId());
 
+            model.Reviews = ProductService.Instance.GetReview(ID);
             return View(model);
+
+        }
+
+	[HttpPost]
+	public ActionResult ProductDetails(CreateReview model)
+        {
+            var newReview = new Review();
+            newReview.Product = ProductService.Instance.GetProduct(model.ProductID);
+            newReview.UserName = model.UserName;
+            newReview.RatingPoint = model.RatingPoint;
+            newReview.ReviewMessage = model.ReviewMessage;
+
+
+            ProductService.Instance.CreateReview(newReview);
+            return View("ProductDetails");
         }
 
         public ActionResult ProductOnMap()

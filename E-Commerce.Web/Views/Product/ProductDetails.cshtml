@@ -39,24 +39,7 @@
                                             <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
                                         </div>
                                     </li>
-                                    @*<li data-thumb="images/shop/sh-detail/thumb-detail-02.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>
-                                        <li data-thumb="images/shop/sh-detail/thumb-detail-03.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>
-                                        <li data-thumb="images/shop/sh-detail/thumb-detail-04.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>*@
+                                    
                                 </ul>
                             </div><!-- /.flexslider -->
                         </div>
@@ -194,32 +177,31 @@
                                                 <h5>Write a review</h5>
                                                 <p>Your email address will not be published. Required fields are marked *</p>
                                             </div>
-                                            <form novalidate="" class="comment-form review-form" id="commentform" method="post" action="#">
-                                                <div class="form-group">
-                                                    <label>Rating point</label>
-                                                    <input name="isFeatured" type="radio" value="True" checked />1
-                                                    <input name="isFeatured" type="radio" value="False" />2
-                                                    <input name="isFeatured" type="radio" value="False" />3
-                                                    <input name="isFeatured" type="radio" value="False" />4
-                                                    <input name="isFeatured" type="radio" value="False" />5
-                                                </div>
-                                                <p class="comment-name">
-                                                    <label>Name*</label>
-                                                    <input type="text" aria-required="true" size="30" value="@Model.User.FirstName" name="name" id="name">
-                                                </p>
-                                                <p class="comment-email">
-                                                    <label>Email*</label>
-                                                    <input type="email" size="30" value="@Model.User.Email" name="email" id="email">
-                                                </p>
-                                                <p class="comment-form-comment">
-                                                    <label>Review*</label>
-                                                    <textarea class="" tabindex="4" name="comment" required> </textarea>
-                                                </p>
+                                            <form id="commentform">
+                                    <input type="hidden" name="ProductID" value="@Model.Product.ID" />
+                                    <div class="form-group">
+                                        <label>Rating point</label>
+                                        <input name="RatingPoint" type="radio" value="1" checked />1
+                                        <input name="RatingPoint" type="radio" value="2" />2
+                                        <input name="RatingPoint" type="radio" value="3" />3
+                                        <input name="RatingPoint" type="radio" value="4" />4
+                                        <input name="RatingPoint" type="radio" value="5" />5
+                                    </div>
+                                    <p class="comment-name">
+                                        <label>Name*</label>
+                                        <input type="text" aria-required="true" size="30" value="@Model.User.FirstName @Model.User.LastName" name="UserName" id="name">
+                                    </p>
 
-                                                <p class="form-submit">
-                                                    <button class="comment-submit">Submit</button>
-                                                </p>
-                                            </form>
+                                    <p class="comment-form-comment">
+                                        <label>Review*</label>
+                                        <textarea class="" tabindex="4" name="ReviewMessage" required> </textarea>
+                                    </p>
+
+                                    <p class="form-submit">
+                                        <button id="submit" class="comment-submit">Submit</button>
+                                    </p>
+                                </form>
+
                                         </div><!-- /.comment-respond -->
                                     </div>
                                 </div><!-- /.content-inner -->
@@ -279,6 +261,29 @@
     });
 //};
 
+
+
+$("#submit").click(function () {
+
+        $.ajax({
+            type: 'POST',
+            url: '/Product/ProductDetails',
+            data: $("#commentform").serialize()
+
+        })
+            .done(function (response) {
+                //$("#reviews").html(response);
+                focusAction("reviews");
+                swal("Review Created Successfully.", {
+                    icon: "success",
+                });
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Fail");
+            });
+
+
+    });
 
 //function drawMap() {
 //    var select = document.getElementById("productImg").value;
