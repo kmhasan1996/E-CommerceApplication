@@ -11,7 +11,7 @@
             <section class="flat-row main-shop shop-slidebar">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 order-md-2 mb-4">
+                        <div class="col-md-8 order-md-2 mb-4">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
                                 <span class="text-muted">Your cart</span>
                             </h4>
@@ -25,20 +25,24 @@
                                         <td>Quantity</td>
                                         <td>Price/unit</td>
                                         <td>Total Price</td>
+                                        @*<td>ID</td>*@
+                                        <td>Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var product in Model.CartProducts)
                                     {
                                         var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
-                                        <tr>
-                                            <td>@i</td>
-                                            <td>@product.Name</td>
-                                            <td><img src="@product.ImageURL" height="50" width="75" /></td>
-                                            <td>@productQuantity</td>
-                                            <td>৳ @product.Price</td>
-                                            <td>৳ @(productQuantity * product.Price)</td>
-                                        </tr>
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@product.Name</td>
+                                        <td><img src="@product.ImageURL" height="50" width="75" /></td>
+                                        <td>@productQuantity</td>
+                                        <td>৳ @product.Price</td>
+                                        <td>৳ @(productQuantity * product.Price)</td>
+                                        @*<td>@product.ID</td>*@
+                                        <td><button onclick="location.href='@Url.Action("Checkout", "Shop")'" class="removeBtn btn btn-success" data-id="@product.ID">Remove</button></td>
+                                    </tr>
                                         i++;
                                     }
                                     <tr>
@@ -75,7 +79,7 @@
                                 </li>
                             </ul>*@
                         </div>
-                        <div class="col-md-6 order-md-1">
+                        <div class="col-md-4 order-md-1">
                             <h4 class="mb-3">Billing address</h4>
                             <form class="needs-validation" novalidate="">
                                 <div class="row">
@@ -87,12 +91,12 @@
 
                                 <div class="mb-3">
                                     <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                                    <input type="email" class="form-control" id="Email"  value="@Model.User.Email">
+                                    <input type="email" class="form-control" id="Email" value="@Model.User.Email">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address"  required="" value="@Model.User.Address">
+                                    <textarea type="text" class="form-control" id="address" >@Model.User.Address</textarea>
                                 </div>
 
                                 <hr class="mb-4">
@@ -102,6 +106,33 @@
                     </div>
                 </div><!-- /.container -->
             </section>
+            <script>
+	$("#placeOrderBtn").click(function () {
+		$.ajax({
+			url: '@Url.Action("PlaceOrder", "Shop")',
+			data: {
+				productIDs: '@string.Join("-", Model.CartProductIDs)'
+			}
+		})
+        .done(function (response) {
+        	if(response.Success)
+        	{
+        		$.cookie('CartProducts', '', { path: '/' });
+        		updateCartProducts();
+
+        		swal("Done", "Your Order has been placed.", "success").then((value) => {
+        			window.location = '@Url.Action("Index", "Shop")';
+        		});
+        	}
+        	else{
+        		swal("Failed", "Unable to place order.", "warning");
+        	}
+        })
+        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("FAIL");
+        });
+	});
+            </script>
         }
         else
         {
@@ -110,4 +141,9 @@
             </div>
         }
     </div>
+<script>
+  
+   
 
+   
+</script>

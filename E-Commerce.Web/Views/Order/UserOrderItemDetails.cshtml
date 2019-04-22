@@ -1,0 +1,85 @@
+﻿@model E_Commerce.Web.ViewModels.UserOrderItemDetailsViewModel
+@{
+    ViewBag.Title = "UserOrderItemDetails";
+}
+
+@if (Model != null && Model.Order != null)
+{
+    var i = 1;
+
+    <section class="flat-row main-shop shop-slidebar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Ordered Products</span>
+                    </h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Sl no.</td>
+                                <td>Name</td>
+                                @*<td>Image</td>*@
+                                <td>Quantity</td>
+                                <td>Price/unit</td>
+                                <td>Total Price</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var orderItem in Model.Order.OrderItems)
+                            {
+
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@orderItem.Product.Name</td>
+                                    @*<td><img src="@orderItem.ImageURL" height="50" width="75" /></td>*@
+                                    <td>@orderItem.Quantity</td>
+                                    <td>৳ @orderItem.Product.Price</td>
+                                    <td>৳ @(orderItem.Quantity * orderItem.Product.Price)</td>
+                                </tr>
+                                i++;
+                            }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                @*<td></td>*@
+                                <td></td>
+                                <td>Total Price</td>
+                                <td> ৳  @Model.Order.TotalAmount</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <h4 class="mb-3">Billing address</h4>
+                    <form class="needs-validation" novalidate="">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="firstName">Name</label>
+                                <input type="text" class="form-control" id="Name" placeholder="" value="@Model.OrderBy.FirstName @Model.OrderBy.LastName" required="">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                            <input type="email" class="form-control" id="Email" value="@Model.OrderBy.Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">Address</label>
+                            <textarea type="text" class="form-control" id="address" >@Model.OrderBy.Address</textarea>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.container -->
+    </section>
+}
+else
+{
+    <div>
+        <b>Order Details not availble</b>
+    </div>
+}

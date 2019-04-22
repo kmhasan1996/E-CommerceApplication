@@ -1,0 +1,136 @@
+﻿@model E_Commerce.Web.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+<script src="~/Content/DataTables/DataTables-1.10.18/js/Bootstrap-3-Typeahead.js"></script>
+
+
+<section class="flat-row flat-iconbox">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-section">
+                    <h2 class="title">
+                        Orders
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div id="tableContiner">
+
+            @*<div>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>Search</label>
+                                    <input class="form-control" id="searchTxt" name="UserID" value="@Model.UserID" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Action</label>
+                                    <div class="row">
+                                        <div class="col-md-4 pr-0">
+                                            <button class="btn btn-primary form-control" type="submit" id="searchBtn">Search</button>
+                                        </div>
+                                        <div class="col-md-4 pr-0">
+                                            <a class="btn btn-primary form-control" type="button" id="resetBtn" href="@Url.Action("Index", "Order", new { pageNo = 1 })">Reset</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>*@
+
+            <div>
+                <table id="OrdersTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>UserID</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Orders != null && Model.Orders.Count > 0)
+                        {
+
+                            foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>@order.UserID</td>
+                                    <td>
+                                        @order.TotalAmount
+                                    </td>
+                                    <td>@order.Status</td>
+                                    <td class="wrap-td">
+                                        <a class="detailBtn" data-id="@order.ID" href="@Url.Action("Details", "Order", new { ID = order.ID })">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td class="text-danger" colspan="4">No Order found.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <hr />
+    </div>
+</section>
+
+
+<script>
+$(document).ready(function() {
+   var dataSrc = [];
+
+   var table = $('#OrdersTable').DataTable({
+      'initComplete': function(){
+         var api = this.api();
+
+         // Populate a dataset for autocomplete functionality
+         // using data from first, second and third columns // api.cells('tr', [0, 1, 2])
+         api.cells('tr', [0]).every(function(){
+            // Get cell data as plain text
+            var data = $('<div>').html(this.data()).text();           
+            if(dataSrc.indexOf(data) === -1){ dataSrc.push(data); }
+         });
+         
+         // Sort dataset alphabetically
+         dataSrc.sort();
+        
+         // Initialize Typeahead plug-in
+         $('.dataTables_filter input[type="search"]', api.table().container())
+            .typeahead({
+               source: dataSrc,
+               afterSelect: function(value){
+                  api.search(value).draw();
+               }
+            }
+         );
+      }
+   });
+});
+
+
+    function focusAction(controlToFocus) {
+        $('html, body').animate({
+            scrollTop: $("#" + controlToFocus).offset().top - 100
+        }, 1000);
+    }
+</script>
+

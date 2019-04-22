@@ -18,5 +18,8 @@ namespace E_Commerce.Database
         public DbSet<Product> Products { get; set; }
         public DbSet<FoodandMedicine> FoodandMedicines { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

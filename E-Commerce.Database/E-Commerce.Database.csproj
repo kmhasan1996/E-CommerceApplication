@@ -65,6 +65,14 @@
     <Compile Include="Migrations\201904121051479_addedlatLnginProductTAble.Designer.cs">
       <DependentUpon>201904121051479_addedlatLnginProductTAble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904171038395_addedReviewTable.cs" />
+    <Compile Include="Migrations\201904171038395_addedReviewTable.Designer.cs">
+      <DependentUpon>201904171038395_addedReviewTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904171435067_addedOrderandOrderItemTable.cs" />
+    <Compile Include="Migrations\201904171435067_addedOrderandOrderItemTable.Designer.cs">
+      <DependentUpon>201904171435067_addedOrderandOrderItemTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +98,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904121051479_addedlatLnginProductTAble.resx">
       <DependentUpon>201904121051479_addedlatLnginProductTAble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171038395_addedReviewTable.resx">
+      <DependentUpon>201904171038395_addedReviewTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904171435067_addedOrderandOrderItemTable.resx">
+      <DependentUpon>201904171435067_addedOrderandOrderItemTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

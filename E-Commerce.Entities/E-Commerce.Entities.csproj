@@ -45,8 +45,14 @@
     <Compile Include="Category.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="FoodandMedicine.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderItem.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration SQL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

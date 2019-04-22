@@ -50,8 +50,10 @@
   <ItemGroup>
     <Compile Include="CategoryService.cs" />
     <Compile Include="FoodandMedicineService.cs" />
+    <Compile Include="OrderService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\E-Commerce.Database\E-Commerce.Database.csproj">

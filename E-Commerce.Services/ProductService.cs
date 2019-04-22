@@ -31,7 +31,7 @@ namespace E_Commerce.Services
         #endregion
 
 
-        public List<Product> SearchProduct(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        public List<Product> SearchProduct(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int pageNo,int pageSize)
         {
             using (var context = new EAContext())
             {
@@ -75,9 +75,58 @@ namespace E_Commerce.Services
                     }
                 }
 
-                return products.ToList();
+                return products.Skip((pageNo - 1) * pageSize).Take(pageSize).ToList();
             }
         }
+
+        public int SearchProductCount(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        {
+            using (var context = new EAContext())
+            {
+                var products = context.Products.Where(x => x.Category.isFeatured == true).ToList();
+
+                if (categoryID.HasValue)
+                {
+                    products = products.Where(x => x.Category.ID == categoryID.Value).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(searchTxt))
+                {
+                    products = products.Where(x => x.Name.ToLower().Contains(searchTxt.ToLower())).ToList();
+                }
+
+                if (minimumPrice.HasValue)
+                {
+                    products = products.Where(x => x.Price >= minimumPrice.Value).ToList();
+                }
+
+                if (maximumPrice.HasValue) 
+                {
+                    products = products.Where(x => x.Price <= maximumPrice.Value).ToList();
+                }
+
+
+
+                if (sortBy.HasValue)
+                {
+                    switch (sortBy.Value)
+                    {
+                        case 2:
+                            products = products.OrderBy(x => x.Price).ToList();
+                            break;
+                        case 3:
+                            products = products.OrderByDescending(x => x.Price).ToList();
+                            break;
+                        default:
+                            products = products.OrderByDescending(x => x.ID).ToList();
+                            break;
+                    }
+                }
+
+                return products.Count;
+            }
+        }
+
         public int GetMaximumPrice()
         {
             using (var context = new EAContext())
@@ -90,6 +139,16 @@ namespace E_Commerce.Services
             using (var context = new EAContext())
             {
                 return context.Products.Where(x => x.ID == id).Include(x => x.Category).FirstOrDefault();
+            }
+
+        }
+
+        //getReview for productDetails view
+        public List<Review> GetReview(int id)
+        {
+            using (var context = new EAContext())
+            {
+                return context.Reviews.Where(x => x.Product.ID == id).ToList();
             }
 
         }
@@ -171,6 +230,18 @@ namespace E_Commerce.Services
 
                 var product = context.Products.Find(id);
                 context.Products.Remove(product);
+                context.SaveChanges();
+            }
+
+        }
+
+
+        public void CreateReview(Review review)
+        {
+            using (var context = new EAContext())
+            {
+                context.Entry(review.Product).State = EntityState.Unchanged;
+                context.Reviews.Add(review);
                 context.SaveChanges();
             }
 

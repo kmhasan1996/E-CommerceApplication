@@ -17,6 +17,7 @@ namespace E_Commerce.Entities
         public decimal Weight { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        public List<Review> Reviews { get; set; }
         public virtual Category Category { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using E_Commerce.Services;
+﻿using E_Commerce.Entities;
+using E_Commerce.Services;
 using E_Commerce.Web.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -37,21 +38,39 @@ namespace E_Commerce.Web.Controllers
                 _userManager = value;
             }
         }
-        public ActionResult Index(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        public ActionResult Index(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy,int? pageNo)
         {
-	    ShopViewmodel model = new ShopViewmodel();
+            int pageSize = 9;
+	        ShopViewmodel model = new ShopViewmodel();
             model.FeaturedCategories = CategoryService.Instance.GetFeaturedNotNullItemCategory();
             model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
-            model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
+
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
             model.SortBy = sortBy;
+            model.CategoryID = categoryID;
+
+            
+            int totalCount= ProductService.Instance.SearchProductCount(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
+            model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy, pageNo.Value, pageSize);
+
+            model.Pager = new Pager(totalCount,pageNo, pageSize);
+
             return View(model);
             
         }
-        public ActionResult FilterProduct(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy)
+        public ActionResult FilterProduct(string searchTxt, int? minimumPrice, int? maximumPrice, int? categoryID, int? sortBy, int? pageNo)
         {
-	     FilterProductsViewModel model = new FilterProductsViewModel();
+            int pageSize = 9;
+            FilterProductsViewModel model = new FilterProductsViewModel();
 
-            model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
+            pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
+            model.SortBy = sortBy;
+            model.CategoryID = categoryID;
+
+            int totalCount = ProductService.Instance.SearchProductCount(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
+            model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy, pageNo.Value, pageSize);
+
+            model.Pager = new Pager(totalCount, pageNo, pageSize);
             return PartialView(model);
             
         }
@@ -63,7 +82,7 @@ namespace E_Commerce.Web.Controllers
 
             var CartproductsCookie = Request.Cookies["CartProducts"];
 
-            if (CartproductsCookie != null)
+            if (CartproductsCookie != null && !string.IsNullOrEmpty(CartproductsCookie.Value))
             {
                 //var productIDs = CartproductsCookie.Value;
                 //var ids = productIDs.Split('-');
@@ -75,6 +94,39 @@ namespace E_Commerce.Web.Controllers
             }
             return View(model);
             
+        }
+
+        //productIDs should beformatted like = "7-7-9-1"
+        public JsonResult PlaceOrder(string productIDs)
+        {
+            JsonResult result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+
+            if (!string.IsNullOrEmpty(productIDs))
+            {
+                var productQuantities = productIDs.Split('-').Select(x => int.Parse(x)).ToList();
+
+                var boughtProducts = ProductService.Instance.GetCartProducts(productQuantities.Distinct().ToList());
+
+                Order newOrder = new Order();
+                newOrder.UserID = User.Identity.GetUserId();
+                newOrder.OrderedAt = DateTime.Now;
+                newOrder.Status = "Pending";
+                newOrder.TotalAmount = boughtProducts.Sum(x => x.Price * productQuantities.Where(productID => productID == x.ID).Count());
+
+                newOrder.OrderItems = new List<OrderItem>();
+                newOrder.OrderItems.AddRange(boughtProducts.Select(x => new OrderItem() { ProductID = x.ID, Quantity = productQuantities.Where(productID => productID == x.ID).Count() }));
+
+                var rowsEffected = ShopService.Instance.SaveOrder(newOrder);
+
+                result.Data = new { Success = true, Rows = rowsEffected };
+            }
+            else
+            {
+                result.Data = new { Success = false };
+            }
+
+            return result;
         }
     }
 }

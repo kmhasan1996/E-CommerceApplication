@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using E_Commerce.Web.Models;
+using E_Commerce.Services;
 
 namespace E_Commerce.Web.Controllers
 {
@@ -64,15 +65,17 @@ namespace E_Commerce.Web.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+          
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Orders= OrderService.Instance.GetOrdersByID(userId)
             };
-            return View(model);
+        return View(model);
         }
 
         //

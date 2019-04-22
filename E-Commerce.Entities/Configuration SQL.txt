@@ -1,0 +1,7 @@
+﻿select * from configurations
+
+insert into configurations([Key],[value]) values('FacebookURL','https://www.facebook.com/kmhasanuiucse')
+
+insert into configurations([Key],[value]) values('Phone','+880 1749796054')
+
+update configurations set [value]='https://www.facebook.com/kmhasanuiucse' where [Key]='FacebookURL'
