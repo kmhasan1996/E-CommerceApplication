@@ -9,8 +9,7 @@
 @if (Model != null && Model.Order != null)
 {
     var i = 1;
-
-    <section class="flat-row main-shop shop-slidebar">
+	    <section class="flat-row main-shop shop-slidebar">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 order-md-2 mb-4">
@@ -37,8 +36,8 @@
                                     <td>@orderItem.Product.Name</td>
                                     @*<td><img src="@orderItem.ImageURL" height="50" width="75" /></td>*@
                                     <td>@orderItem.Quantity</td>
-                                    <td>৳ @orderItem.Product.Price</td>
-                                    <td>৳ @(orderItem.Quantity * orderItem.Product.Price)</td>
+                                    <td>? @orderItem.Product.Price</td>
+                                    <td>? @(orderItem.Quantity * orderItem.Product.Price)</td>
                                 </tr>
                                 i++;
                             }
@@ -48,7 +47,7 @@
                                 @*<td></td>*@
                                 <td></td>
                                 <td>Total Price</td>
-                                <td> ৳  @Model.Order.TotalAmount</td>
+                                <td> ?  @Model.Order.TotalAmount</td>
                             </tr>
 
                         </tbody>
@@ -92,6 +91,7 @@
         </div><!-- /.container -->
     </section>
 
+    
     <script>
 	$("#changeStatus").change(function () {
 		$.ajax({
