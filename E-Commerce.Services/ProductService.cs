@@ -69,6 +69,12 @@ namespace E_Commerce.Services
                         case 3:
                             products = products.OrderByDescending(x => x.Price).ToList();
                             break;
+                        case 4:
+                            products = products.OrderByDescending(x => x.CreatedTime).ToList();
+                            break;
+                        case 5:
+                            products = products.OrderBy(x => x.CreatedTime).ToList();
+                            break;
                         default:
                             products = products.OrderByDescending(x => x.ID).ToList();
                             break;
@@ -117,6 +123,12 @@ namespace E_Commerce.Services
                         case 3:
                             products = products.OrderByDescending(x => x.Price).ToList();
                             break;
+                        case 4:
+                            products = products.OrderByDescending(x => x.CreatedTime).ToList();
+                            break;
+                        case 5:
+                            products = products.OrderBy(x => x.CreatedTime).ToList();
+                            break;
                         default:
                             products = products.OrderByDescending(x => x.ID).ToList();
                             break;
@@ -134,6 +146,15 @@ namespace E_Commerce.Services
                 return (int)(context.Products.Max(x => x.Price));
             }
         }
+
+        public int GetMinimumPrice()
+        {
+            using (var context = new EAContext())
+            {
+                return (int)(context.Products.Min(x => x.Price));
+            }
+        }
+
         public Product GetProduct(int id)
         {
             using (var context = new EAContext())

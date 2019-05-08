@@ -10,5 +10,7 @@ namespace E_Commerce.Web.Code
         Default = 1,
         PricLowToHigh = 2,
         PriceHighToLow = 3,
+        DateNewToOld = 4,
+        DateOldToNew = 5,
     }
 }

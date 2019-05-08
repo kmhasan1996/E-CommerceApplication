@@ -41,18 +41,22 @@ namespace E_Commerce.Web.Controllers
         }
 
         // GET: Shared
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult ProductTable()
         {
             var Products = ProductService.Instance.GetProducts();
 
             return PartialView(Products);
         }
-		
-		[HttpGet]
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
         public ActionResult Create()
         {
             var categories = CategoryService.Instance.GetCategories();
@@ -69,13 +73,15 @@ namespace E_Commerce.Web.Controllers
             newProduct.Unit = model.Unit;
             newProduct.Category = CategoryService.Instance.GetCategory(model.CategoryID);
             newProduct.ImageURL = model.ImageURL;
-            newProduct.latitude = model.latitude;
-            newProduct.longitude = model.longitude;
-            
+            //newProduct.latitude = model.latitude;
+            //newProduct.longitude = model.longitude; 
 
+            newProduct.CreatedTime = DateTime.Now;
             ProductService.Instance.CreateProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int ID)
         {
@@ -88,8 +94,8 @@ namespace E_Commerce.Web.Controllers
             model.Weight = product.Weight;
             model.Unit = product.Unit;
             model.ImageURL = product.ImageURL;
-            model.latitude = product.latitude;
-            model.longitude = product.longitude;
+            //model.latitude = product.latitude;
+            //model.longitude = product.longitude;
             return PartialView(model);
         }
         [HttpPost]
@@ -102,8 +108,8 @@ namespace E_Commerce.Web.Controllers
             existingProduct.Unit = model.Unit;
             existingProduct.Description = model.Description;
             existingProduct.ImageURL = model.ImageURL;
-            existingProduct.latitude = model.latitude;
-            existingProduct.longitude = model.longitude;
+            //existingProduct.latitude = model.latitude;
+            //existingProduct.longitude = model.longitude;
 
             ProductService.Instance.UpdateProduct(existingProduct);
             return RedirectToAction("ProductTable");
@@ -115,6 +121,7 @@ namespace E_Commerce.Web.Controllers
             ProductService.Instance.DeleteProduct(ID);
             return RedirectToAction("ProductTable");
         }
+
 
         [HttpGet]
         public ActionResult ProductDetails(int ID)
@@ -139,13 +146,13 @@ namespace E_Commerce.Web.Controllers
             return View("ProductDetails");
         }
 
-        public ActionResult ProductOnMap()
+        //public ActionResult ProductOnMap()
 
-        {
-            var Products = ProductService.Instance.GetProducts();
+        //{
+        //    var Products = ProductService.Instance.GetProducts();
 
-            return View(Products);
-        }
+        //    return View(Products);
+        //}
 
 
     }

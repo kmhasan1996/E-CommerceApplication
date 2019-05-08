@@ -1,0 +1,68 @@
+﻿@model E_Commerce.Web.ViewModels.NavbarViewModel
+
+<div class="container clearfix" id="site-header-inner">
+
+
+    <div id="logo" class="logo float-left">
+        <a href="@Url.Action("Index", "Home")" title="logo">
+            <img src="~/Content/images/livestock.png" alt="image" width="200" height="60" style="background-color:white;">
+        </a>
+    </div><!-- /.logo -->
+    <div class="mobile-button"><span></span></div>
+    <ul class="menu-extra">
+        <li class="box-search">
+            <a class="icon_search header-search-icon" style="color:black;background-color:white;" href="#"></a>
+            <form role="search" method="get" class="header-search-form" action="@Url.Action("Index", "Shop")">
+                <input type="text" value="" name="s" class="header-search-field" placeholder="Search...">
+                <button type="submit" class="header-search-submit" title="Search">Search</button>
+            </form>
+        </li>
+
+        <li class="box-cart nav-top-cart-wrapper">
+            <a class="icon_cart nav-cart-trigger active" href="#"><span id="cartProductCount">0</span></a>
+            <div class="nav-shop-cart">
+                <div class="widget_shopping_cart_content">
+                    <div class="woocommerce-min-cart-wrap">
+                        <ul class="woocommerce-mini-cart cart_list product_list_widget ">
+                            <li class="woocommerce-mini-cart-item mini_cart_item">
+                                <a href="@Url.Action("Checkout", "Shop")">Checkout</a>
+                            </li>
+                        </ul>
+                    </div><!-- /.widget_shopping_cart_content -->
+                </div>
+            </div><!-- /.nav-shop-cart -->
+        </li>
+
+
+    </ul><!-- /.menu-extra class="active" -->
+    <div class="nav-wrap" id="nav">
+        <nav id="mainnav" class="mainnav">
+            <ul class="menu">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">HOME</a>
+
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Shop")">ALL PRODUCT</a>
+                    <ul class="submenu">
+                        @foreach (var item in Model.FeaturedCategories)
+                        {
+                            <li><a href="@Url.Action("Index","Shop",new { categoryID=item.ID})">@item.Name</a></li>
+                        }
+
+
+                    </ul>
+                </li>
+
+                <li><a href="@Url.Action("UserIndex", "FoodandMedicine")">FOOD & MEDICINE</a></li>
+
+
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">CONTACT</a>
+
+                </li>
+                <li><a href="@Url.Action("Faq", "Home")">FAQ</a></li>
+            </ul>
+        </nav><!-- /.mainnav -->
+    </div><!-- /.nav-wrap -->
+</div><!-- /.container-fluid -->

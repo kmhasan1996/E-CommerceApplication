@@ -215,6 +215,7 @@
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\FoodandMedicinesViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\NavbarViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\SharedViewModel.cs" />
@@ -528,11 +529,12 @@
     <Content Include="Views\FoodandMedicine\UserIndex.cshtml" />
     <Content Include="Views\FoodandMedicine\UserGetFoodandMedicine.cshtml" />
     <Content Include="Views\Product\ProductOnMap.cshtml" />
-    <Content Include="Views\Shared\_nav.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\UserOrderItemDetails.cshtml" />
+    <Content Include="Views\Home\Navbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

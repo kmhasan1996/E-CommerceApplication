@@ -30,19 +30,40 @@ namespace E_Commerce.Services
 
         #endregion
 
-        public List<Order> SearchOrders(string status)
+
+        public List<Order> AllOrders()
         {
             using (var context = new EAContext())
             {
-                var orders = context.Orders.ToList();
 
-               
-                if (!string.IsNullOrEmpty(status))
-                {
-                    orders = orders.Where(x => x.Status.ToLower().Contains(status.ToLower())).ToList();
-                }
+                return context.Orders.ToList();
+            }
+        }
 
-                return orders.ToList();
+        public List<Order> PendingOrders()
+        {
+            using (var context = new EAContext())
+            {
+
+                return context.Orders.Where(x => x.Status == "Pending").ToList();
+            }
+        }
+
+        public List<Order> InProgressOrders()
+        {
+            using (var context = new EAContext())
+            {
+
+                return context.Orders.Where(x => x.Status == "In Progress").ToList();
+            }
+        }
+
+        public List<Order> DeliveredOrders()
+        {
+            using (var context = new EAContext())
+            {
+
+                return context.Orders.Where(x => x.Status == "Delivered").ToList();
             }
         }
 

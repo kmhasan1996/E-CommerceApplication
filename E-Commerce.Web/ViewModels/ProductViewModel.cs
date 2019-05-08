@@ -17,8 +17,9 @@ namespace E_Commerce.Web.ViewModels
             public decimal Weight { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
-            public string latitude { get; set; }
-            public string longitude { get; set; }
+            public DateTime CreatedTime { get; set; }
+            //public string latitude { get; set; }
+            //public string longitude { get; set; }
     }
         public class EditProductViewModel
         {
@@ -31,8 +32,8 @@ namespace E_Commerce.Web.ViewModels
             public decimal Unit { get; set; }
             public int CategoryID { get; set; }
             public string ImageURL { get; set; }
-            public string latitude { get; set; }
-            public string longitude { get; set; }
+            //public string latitude { get; set; }
+            //public string longitude { get; set; }
     }
 
     public class ProductDetailModel
@@ -49,13 +50,4 @@ namespace E_Commerce.Web.ViewModels
         public string ReviewMessage { get; set; }
         public int ProductID { get; set; }
     }
-
-	public class CreateReview
-    {
-        public string UserName { get; set; }
-        public decimal RatingPoint { get; set; }
-        public string ReviewMessage { get; set; }
-        public int ProductID { get; set; }
-    }
-
 }

@@ -76,11 +76,12 @@
                             <ul class="menu">
 
                                 @*<li><a href="@Url.Action("Index", "Home")">Home</a></li>*@
-                                <li><a href="@Url.Action("Index", "Role")">ROLE</a></li>
+
                                 <li><a href="@Url.Action("Index", "Category")">CATEGORY</a></li>
                                 <li><a href="@Url.Action("Index", "Product")">PRODUCT</a></li>
                                 <li><a href="@Url.Action("Index", "FoodandMedicine")">FOOD&MEDECINE</a></li>
                                 <li><a href="@Url.Action("Index", "Order")">ORDER</a></li>
+                                <li><a href="@Url.Action("Index", "Role")">ROLE</a></li>
 
 
 
@@ -93,6 +94,11 @@
         @*@Html.Partial("_LoginPartial")*@
 
         @RenderBody()
+
+        @*@if (this.User.IsInRole("Admin"))
+        {
+            @Html.Action("Index", "Category")
+        }*@
 
         <div class="footer-bottom">
             <div class="container">

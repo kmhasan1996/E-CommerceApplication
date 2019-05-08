@@ -12,6 +12,10 @@ namespace E_Commerce.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Category");
+            }
             HomeViewModel model = new HomeViewModel();
 
             //model.FeaturedCategories = CategoryService.Instance.GetFeaturedNotNullItemCategory();//GetFeaturedCategory();
@@ -40,7 +44,14 @@ namespace E_Commerce.Web.Controllers
             return View();
         }
 
-       
+        public ActionResult Navbar()
+        {
+            NavbarViewModel model = new NavbarViewModel();
+            model.FeaturedCategories= CategoryService.Instance.GetFeaturedCategory();
+            return PartialView("Navbar",model);
+        }
+
+
 
     }
 }

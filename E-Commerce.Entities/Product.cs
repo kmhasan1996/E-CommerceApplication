@@ -15,8 +15,9 @@ namespace E_Commerce.Entities
         public decimal Price { get; set; }
         public decimal Unit { get; set; }
         public decimal Weight { get; set; }
-        public string latitude { get; set; }
-        public string longitude { get; set; }
+        public DateTime CreatedTime { get; set; }
+        //public string latitude { get; set; }
+        //public string longitude { get; set; }
         public List<Review> Reviews { get; set; }
         public virtual Category Category { get; set; }
     }

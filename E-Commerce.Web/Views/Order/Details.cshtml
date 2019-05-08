@@ -36,8 +36,8 @@
                                     <td>@orderItem.Product.Name</td>
                                     @*<td><img src="@orderItem.ImageURL" height="50" width="75" /></td>*@
                                     <td>@orderItem.Quantity</td>
-                                    <td>? @orderItem.Product.Price</td>
-                                    <td>? @(orderItem.Quantity * orderItem.Product.Price)</td>
+                                    <td>@orderItem.Product.Price</td>
+                                    <td>@(orderItem.Quantity * orderItem.Product.Price)</td>
                                 </tr>
                                 i++;
                             }
@@ -47,7 +47,7 @@
                                 @*<td></td>*@
                                 <td></td>
                                 <td>Total Price</td>
-                                <td> ?  @Model.Order.TotalAmount</td>
+                                <td>@Model.Order.TotalAmount</td>
                             </tr>
 
                         </tbody>

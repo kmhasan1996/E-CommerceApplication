@@ -10,6 +10,7 @@ namespace E_Commerce.Entities
     {
         public int ID { get; set; }
         public string UserID { get; set; }
+        public string UserName { get; set; }
         public DateTime OrderedAt { get; set; }
         public string Status { get; set; }
 

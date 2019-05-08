@@ -3,6 +3,7 @@
 @model E_Commerce.Web.ViewModels.ShopViewmodel
 @{
     ViewBag.Title = "Index";
+
 }
 
 <!-- Page title -->
@@ -11,7 +12,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page-title-heading">
-                    <h1 class="title">Shop</h1>
+                    @*<h1 class="title">All Product</h1>*@
+
+                    <h3>
+                        <a href="@Url.Action("Index", "Home")">Home ></a> 
+                        <a href="@Url.Action("Index", "Shop")">All Product </a> 
+
+                        @foreach (var category in Model.FeaturedCategories)
+                        {
+                            if (category.ID == Model.CategoryID) { 
+                                 <a href="@Url.Action("Index","Shop",new { categoryID=category.ID,sortBy=Model.SortBy})" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value==category.ID?"active" : string.Empty)"> >@category.Name</a>
+                            }
+
+                        }
+
+                    </h3>
+                   
                 </div><!-- /.page-title-heading -->
             </div><!-- /.col-md-12 -->
         </div><!-- /.row -->
@@ -39,8 +55,10 @@
                         <div class="col-md-8">
                             <select onchange="location = this.value;" style="height:30px">
                                 <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.Default,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.Default ? "selected" : string.Empty : string.Empty)>Default - Newest</option>
-                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PricLowToHigh,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PricLowToHigh ? "selected" : string.Empty : string.Empty)>Price: low to high</option>
-                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PriceHighToLow,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "selected" : string.Empty : string.Empty)>Price: high to low</option>
+                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PricLowToHigh,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PricLowToHigh ? "selected" : string.Empty : string.Empty)>Price (Low > High)</option>
+                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.PriceHighToLow,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.PriceHighToLow ? "selected" : string.Empty : string.Empty)>Price (High > Low)</option>
+                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.DateNewToOld,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.DateNewToOld ? "selected" : string.Empty : string.Empty)>Date (New > Old)</option>
+                                <option value="@Url.Action("Index","Shop",new {sortBy=(int)SortByEnums.DateOldToNew,categoryID=Model.CategoryID})" @(Model.SortBy.HasValue ? Model.SortBy.Value == (int)SortByEnums.DateOldToNew ? "selected" : string.Empty : string.Empty)>Date (Old > New)</option>
                             </select>
                         </div>
 
@@ -71,7 +89,7 @@
                             {
 
 
-                                <a href="@Url.Action("Index","Shop",new { categoryID=category.ID,sortBy=Model.SortBy})" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value==category.ID?"active" : string.Empty)" >@category.Name</a>
+                                <a href="@Url.Action("Index","Shop",new { categoryID=category.ID,sortBy=Model.SortBy})" class="@(Model.CategoryID.HasValue && Model.CategoryID.Value==category.ID?"active" : string.Empty)">@category.Name</a>
 
 
                             }
@@ -112,11 +130,14 @@
 
 <script>
     var callTimeout;
+
+   $("#amount").val("$" + @Model.MinimumPrice + ".00" + " - " + "$" + @Model.MaximumPrice + ".00");
+
 	var priceSlider = $("#slide-range").slider({
 		range: true,
-		min: 0,
+		min: @Model.MinimumPrice,
 		max: @Model.MaximumPrice,
-		values: [0, @Model.MaximumPrice],
+		values: [@Model.MinimumPrice, @Model.MaximumPrice],
 		slide: function (event, ui) {
 			var minPrice = ui.values[0];
 			var maxPrice = ui.values[1];
@@ -131,7 +152,7 @@
     function GetData(minimumPrice, maximumPrice) {
          //console.log("GetData Called");
         $.ajax({
-            
+
             url: '@Url.Action("FilterProduct", "Shop")',
             data: {
                 sortBy:'@Model.SortBy',
@@ -142,7 +163,7 @@
         })
         .done(function(response) {
            $("#productsDiv").html(response);
-                   
+
         })
        .fail(function(XMLHttpRequest, textStatus, errorThrown) {
            swal({

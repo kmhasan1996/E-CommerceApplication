@@ -9,8 +9,11 @@ namespace E_Commerce.Web.ViewModels
 {
     public class OrderViewModel
     {
-        public List<Order> Orders { get; set; }
-        public string Status { get; set; }
+        public List<Order> AllOrders { get; set; }
+        public List<Order> PendingOrders { get; set; }
+        public List<Order> InProgressOrders { get; set; }
+        public List<Order> DeliveredOrders { get; set; }
+        
        
     }
 

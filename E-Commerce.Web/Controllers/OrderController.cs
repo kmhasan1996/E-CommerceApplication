@@ -38,15 +38,15 @@ namespace E_Commerce.Web.Controllers
             }
         }
         // GET: Order
-        public ActionResult Index(string status)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
         {
             OrderViewModel model = new OrderViewModel();
-            model.Status = status;
-
-           
-
-            model.Orders = OrderService.Instance.SearchOrders(status);
-           
+            //model.Status = status;
+            model.AllOrders = OrderService.Instance.AllOrders();
+            model.PendingOrders = OrderService.Instance.PendingOrders();
+            model.InProgressOrders= OrderService.Instance.InProgressOrders();
+            model.DeliveredOrders = OrderService.Instance.DeliveredOrders();
             return View(model);
         }
 

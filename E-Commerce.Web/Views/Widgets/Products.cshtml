@@ -13,7 +13,7 @@
                     <li class="product-item" style="padding-left:10px;">
                         <div class="product-thumb clearfix">
                             <a href="@Url.Action("ProductDetails", "Product", new { ID = product.ID })" class="product-thumb">
-                                <img src="@product.ImageURL" style="padding-bottom: 15px;" alt="image">
+                                <img src="@product.ImageURL" width="500" height="333" style="padding-bottom: 15px;" alt="image">
                             </a>
 
                             <span class="new">New</span>
@@ -52,7 +52,7 @@
                     <li class="product-item" style="padding-left:10px;">
                         <div class="product-thumb clearfix">
                             <a href="@Url.Action("ProductDetails", "Product", new { ID = product.ID })" class="product-thumb">
-                                <img src="@product.ImageURL" style="padding-bottom: 15px;" alt="image">
+                                <img src="@product.ImageURL" width="500" height="333" style="padding-bottom: 15px;" alt="image">
                             </a>
 
                             <span class="new">New</span>
@@ -100,7 +100,7 @@
                     <li class="product-item @catProduct.Category.Name" style="padding-left:10px;">
                         <div class="product-thumb clearfix">
                             <a href="@Url.Action("ProductDetails", "Product", new { ID = catProduct.ID })" class="product-thumb">
-                                <img src="@catProduct.ImageURL" style="padding-bottom: 15px;" alt="image">
+                                <img src="@catProduct.ImageURL" width="500" height="333" style="padding-bottom: 15px;" alt="image">
                             </a>
                             @if (Model.IsLatestProduct)
                             {

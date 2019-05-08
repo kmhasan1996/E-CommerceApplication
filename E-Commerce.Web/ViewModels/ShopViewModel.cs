@@ -22,8 +22,10 @@ namespace E_Commerce.Web.ViewModels
         public List<Category> FeaturedCategories { get; set; }
         public List<Product> Products { get; set; }
         public int MaximumPrice { get; set; }
+        public int MinimumPrice { get; set; }
         public int? CategoryID { get; set; }
         public Pager Pager { get; set; }
+       
 
     }
     public class FilterProductsViewModel
@@ -35,11 +37,4 @@ namespace E_Commerce.Web.ViewModels
 
     }
 
-    public class LayoutViewModel
-    {
-      
-        public List<Category> FeaturedCategories { get; set; }
-       
-
-    }
 }

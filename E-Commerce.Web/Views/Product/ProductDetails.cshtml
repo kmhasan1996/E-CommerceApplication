@@ -10,9 +10,15 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-title-heading">
-                        <h1 class="title">
-                            @Model.Product.Name
-                        </h1>
+                        <h2 class="title">
+                           Details
+                        </h2>
+                        <h3>
+                            <a href="@Url.Action("Index", "Home")">Home ></a>
+                            <a href="@Url.Action("Index", "Shop")">All Product ></a>
+                            <a href="@Url.Action("Index","Shop",new { categoryID=Model.Product.Category.ID})" >@Model.Product.Category.Name ></a>
+                            <a> @Model.Product.Name </a>
+                        </h3>
                     </div><!-- /.page-title-heading -->
                 </div><!-- /.col-md-12 -->
             </div><!-- /.row -->
@@ -32,8 +38,8 @@
                                         <img src="@Model.Product.ImageURL" alt="Image">
                                         <input type="hidden" id="productImg" value="@Model.Product.ImageURL" />
                                         <input type="hidden" id="productName" value=" @Model.Product.Name" />
-                                        <input type="hidden" id="productLat" value=" @Model.Product.latitude" />
-                                        <input type="hidden" id="productLng" value=" @Model.Product.longitude" />
+                                        @*<input type="hidden" id="productLat" value=" @Model.Product.latitude" />
+                                        <input type="hidden" id="productLng" value=" @Model.Product.longitude" />*@
 
                                         <div class="flat-icon style-1">
                                             <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
@@ -114,10 +120,10 @@
                 </div>
 
             </div><!-- /.row -->
-            <div class="col-md-12">
-                @*<div class="flat-map"></div>*@
+            @*<div class="col-md-12">
+               
                 <div class="flat-map" id="mapArea"></div>
-            </div><!-- /.col-md-12 -->
+            </div>*@
         </div><!-- /.container -->
     </section><!-- /.flat-row -->
 

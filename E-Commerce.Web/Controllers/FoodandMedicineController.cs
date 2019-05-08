@@ -13,6 +13,7 @@ namespace E_Commerce.Web.Controllers
     {
         FoodandMedicineService foodandMedicineService = new FoodandMedicineService();
         // GET: Food
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
@@ -60,6 +61,7 @@ namespace E_Commerce.Web.Controllers
             return PartialView(foods);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -82,6 +84,8 @@ namespace E_Commerce.Web.Controllers
             //return View();
             return RedirectToAction("FoodandMedicineTable");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int ID)
         {

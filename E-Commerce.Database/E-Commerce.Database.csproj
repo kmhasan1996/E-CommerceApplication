@@ -73,6 +73,22 @@
     <Compile Include="Migrations\201904171435067_addedOrderandOrderItemTable.Designer.cs">
       <DependentUpon>201904171435067_addedOrderandOrderItemTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905040831506_RemovedLanLng.cs" />
+    <Compile Include="Migrations\201905040831506_RemovedLanLng.Designer.cs">
+      <DependentUpon>201905040831506_RemovedLanLng.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905040920432_AddedDatetime.cs" />
+    <Compile Include="Migrations\201905040920432_AddedDatetime.Designer.cs">
+      <DependentUpon>201905040920432_AddedDatetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905081009152_addedUserNameinorder.cs" />
+    <Compile Include="Migrations\201905081009152_addedUserNameinorder.Designer.cs">
+      <DependentUpon>201905081009152_addedUserNameinorder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905081014231_OrderUsername.cs" />
+    <Compile Include="Migrations\201905081014231_OrderUsername.Designer.cs">
+      <DependentUpon>201905081014231_OrderUsername.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -104,6 +120,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904171435067_addedOrderandOrderItemTable.resx">
       <DependentUpon>201904171435067_addedOrderandOrderItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905040831506_RemovedLanLng.resx">
+      <DependentUpon>201905040831506_RemovedLanLng.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905040920432_AddedDatetime.resx">
+      <DependentUpon>201905040920432_AddedDatetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081009152_addedUserNameinorder.resx">
+      <DependentUpon>201905081009152_addedUserNameinorder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081014231_OrderUsername.resx">
+      <DependentUpon>201905081014231_OrderUsername.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

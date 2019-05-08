@@ -44,13 +44,13 @@ namespace E_Commerce.Web.Controllers
 	        ShopViewmodel model = new ShopViewmodel();
             model.FeaturedCategories = CategoryService.Instance.GetFeaturedNotNullItemCategory();
             model.MaximumPrice = ProductService.Instance.GetMaximumPrice();
+            model.MinimumPrice = ProductService.Instance.GetMinimumPrice();
 
             pageNo = pageNo.HasValue ? pageNo.Value > 0 ? pageNo.Value : 1 : 1;
             model.SortBy = sortBy;
             model.CategoryID = categoryID;
 
-            
-            int totalCount= ProductService.Instance.SearchProductCount(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
+            int totalCount = ProductService.Instance.SearchProductCount(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy);
             model.Products = ProductService.Instance.SearchProduct(searchTxt, minimumPrice, maximumPrice, categoryID, sortBy, pageNo.Value, pageSize);
 
             model.Pager = new Pager(totalCount,pageNo, pageSize);
@@ -109,6 +109,7 @@ namespace E_Commerce.Web.Controllers
                 var boughtProducts = ProductService.Instance.GetCartProducts(productQuantities.Distinct().ToList());
 
                 Order newOrder = new Order();
+                newOrder.UserName = User.Identity.GetUserName();
                 newOrder.UserID = User.Identity.GetUserId();
                 newOrder.OrderedAt = DateTime.Now;
                 newOrder.Status = "Pending";

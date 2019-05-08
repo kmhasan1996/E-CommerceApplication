@@ -11,12 +11,15 @@ namespace E_Commerce.Web.Controllers
 {
     public class CategoryController : Controller
     {
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Index()
         {
             var categories = CategoryService.Instance.GetCategories();
             return View(categories);
         }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult CategoryTable()
         {
             var categories = CategoryService.Instance.GetCategories();
@@ -24,6 +27,7 @@ namespace E_Commerce.Web.Controllers
             return PartialView(categories);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -43,6 +47,9 @@ namespace E_Commerce.Web.Controllers
 
             return RedirectToAction("CategoryTable");
         }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int ID)
         {
@@ -57,6 +64,7 @@ namespace E_Commerce.Web.Controllers
 
             return PartialView(model);
         }
+
         [HttpPost]
         public ActionResult Edit(EditCategoryViewModel model)
         {
