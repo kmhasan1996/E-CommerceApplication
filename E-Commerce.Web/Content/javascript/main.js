@@ -881,11 +881,37 @@ function updateCartProducts() {
         $.cookie('CartProducts', products.join('-'), {path: '/' });
         updateCartProducts();
 
-        swal({
-        title: "Done",
-        text: "Product Added to Cart.",
-        icon: "success"
+        //swal({
+        //title: "Done",
+        //text: "Product Added to Cart.",
+        //icon: "success"
+        //})
+
+        swal("Done", "Product added to cart", "success", {
+            buttons: {
+                cancel: "Checkout",
+                catch: {
+                    text: "Shop more",
+                    value: "catch",
+                },
+                //defeat: true,
+            },
         })
+            .then((value) => {
+                switch (value) {
+
+                    //case "defeat":
+                    //    swal("Pikachu fainted! You gained 500 XP!");
+                    //    break;
+
+                    case "catch":
+                       
+                        break;
+
+                    default:
+                        window.location.href = '/Shop/Checkout/';
+                }
+            });
 
     });
 

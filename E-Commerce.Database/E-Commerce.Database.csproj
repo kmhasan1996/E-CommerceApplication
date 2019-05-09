@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201905081014231_OrderUsername.Designer.cs">
       <DependentUpon>201905081014231_OrderUsername.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905081748221_Added234imageinproduct.cs" />
+    <Compile Include="Migrations\201905081748221_Added234imageinproduct.Designer.cs">
+      <DependentUpon>201905081748221_Added234imageinproduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -132,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905081014231_OrderUsername.resx">
       <DependentUpon>201905081014231_OrderUsername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081748221_Added234imageinproduct.resx">
+      <DependentUpon>201905081748221_Added234imageinproduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

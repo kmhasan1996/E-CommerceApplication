@@ -47,27 +47,53 @@
                 <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png, .jpg" />
             </div>
 
-            @*<div class="form-group">
-                <label>Latitude<span class="required">*</span></label>
-                <input class="form-control" name="latitude" id="latitude" value="@Model.latitude" />
-                <p id="priceErroeMessage"></p>
+            <div class="thumb col-md-4">
+                <img src="@Model.ImageURL" class="img-thumbnail img-fluid" id="productImage" />
             </div>
-            <div class="form-group">
-                <label>Longitude<span class="required">*</span></label>
-                <input class="form-control" name="longitude" id="longitude" value="@Model.longitude"/>
-                <p id="priceErroeMessage"></p>
-            </div>*@
 
+            <div class="form-group">
+                <label>Image2</label>
+                <input type="hidden" id="ImageURL2" name="ImageURL2" value="@Model.ImageURL2" />
+                <input class="form-control" id="imageUpload2" name="Image2" type="file" accept=".png, .jpg" />
+            </div>
+
+            <div class="thumb col-md-4">
+                <img src="@Model.ImageURL2" class="img-thumbnail img-fluid" id="productImage2" />
+            </div>
+
+
+            <div class="form-group">
+                <label>Image3</label>
+                <input type="hidden" id="ImageURL3" name="ImageURL3" value="@Model.ImageURL3" />
+                <input class="form-control" id="imageUpload3" name="Image3" type="file" accept=".png, .jpg" />
+            </div>
+
+            <div class="thumb col-md-4">
+                <img src="@Model.ImageURL3" class="img-thumbnail img-fluid" id="productImage3" />
+            </div>
+
+
+            <div class="form-group">
+                <label>Image4</label>
+                <input type="hidden" id="ImageURL4" name="ImageURL4" value="@Model.ImageURL4" />
+                <input class="form-control" id="imageUpload4" name="Image4" type="file" accept=".png, .jpg" />
+            </div>
+
+            <div class="thumb col-md-4">
+                <img src="@Model.ImageURL4" class="img-thumbnail img-fluid" id="productImage4" />
+            </div>
+
+            <button type="button" class="btn btn-primary" id="updateBtn" onclick="return validateForm();">Update</button>
+            <button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
         </div>
 
-        <div class="col-md-4">
+        @*<div class="col-md-4">
             <div class="thumb">
                 <img src="@Model.ImageURL" class="img-thumbnail img-fluid" id="productImage" />
             </div>
-        </div>
+        </div>*@
 
-        <button type="button" class="btn btn-primary" id="updateBtn" onclick="return validateForm();">Update</button>
-        <button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
+        
     </div>
 
 </form>
@@ -168,7 +194,114 @@
         	alert("FAIL");
         });
 	});
-    
+    $("#imageUpload2").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL2").val(response.ImageURL);
+        		    $("#productImage2").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
+     });
+    $("#imageUpload3").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL3").val(response.ImageURL);
+        		    $("#productImage3").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
+    });
+    $("#imageUpload4").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL4").val(response.ImageURL);
+        		    $("#productImage4").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
+    });
 
     $("#cancelBtn").click(function () {
         $("#actionContainer").html("");

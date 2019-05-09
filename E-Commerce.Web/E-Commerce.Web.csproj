@@ -347,6 +347,7 @@
     <Content Include="Content\images\b6ed8d12-631c-4502-b449-3234a4dd5f18.jpg" />
     <Content Include="Content\images\b9d00911-c64c-4a2c-8462-d94f0c13683c.jpg" />
     <Content Include="Content\images\bg-countdown-1-962x506.jpg" />
+    <Content Include="Content\images\blog\search_icon.png" />
     <Content Include="Content\images\c0c086c8-9e0c-4dea-aaa3-2724df488be0.jpg" />
     <Content Include="Content\images\c3586b10-0f0f-42ed-ab6f-b9a482feb18f.jpg" />
     <Content Include="Content\images\c7c175af-bbf9-4f08-b11e-b454529b0c36.jpg" />
@@ -391,6 +392,7 @@
     <Content Include="Content\images\slider\slider-bg-7.jpg" />
     <Content Include="Content\images\slider\slider-bg-8.jpg" />
     <Content Include="Content\images\system\placeholder-image.png" />
+    <Content Include="Content\images\thumb-detail-03.jpg" />
     <Content Include="Content\images\wordpress-version.png" />
     <Content Include="Content\javascript\bootstrap.min.js" />
     <Content Include="Content\javascript\equalize.min.js" />
@@ -528,7 +530,6 @@
     <Content Include="Views\FoodandMedicine\Edit.cshtml" />
     <Content Include="Views\FoodandMedicine\UserIndex.cshtml" />
     <Content Include="Views\FoodandMedicine\UserGetFoodandMedicine.cshtml" />
-    <Content Include="Views\Product\ProductOnMap.cshtml" />
     <Content Include="Views\Shared\_NavbarPartial.cshtml" />
     <Content Include="Views\Home\Faq.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />

@@ -12,12 +12,13 @@ namespace E_Commerce.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageURL { get; set; }
+        public string ImageURL2 { get; set; }
+        public string ImageURL3 { get; set; }
+        public string ImageURL4 { get; set; }
         public decimal Price { get; set; }
         public decimal Unit { get; set; }
         public decimal Weight { get; set; }
         public DateTime CreatedTime { get; set; }
-        //public string latitude { get; set; }
-        //public string longitude { get; set; }
         public List<Review> Reviews { get; set; }
         public virtual Category Category { get; set; }
     }

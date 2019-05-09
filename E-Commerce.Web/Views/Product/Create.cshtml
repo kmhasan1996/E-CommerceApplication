@@ -8,91 +8,7 @@
         color: red;
     }
 </style>
-<style>
-    /* Always set the map height explicitly to define the size of the div
-        * element that contains the map. */
-    #map {
-        height: 100%;
-    }
-    /* Optional: Makes the sample page fill the window. */
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
 
-    #description {
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-    }
-
-    #infowindow-content .title {
-        font-weight: bold;
-    }
-
-    #infowindow-content {
-        display: none;
-    }
-
-    #map #infowindow-content {
-        display: inline;
-    }
-
-    .pac-card {
-        margin: 10px 10px 0 0;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        background-color: #fff;
-        font-family: Roboto;
-    }
-
-    #pac-container {
-        padding-bottom: 12px;
-        margin-right: 12px;
-    }
-
-    .pac-controls {
-        display: inline-block;
-        padding: 5px 11px;
-    }
-
-        .pac-controls label {
-            font-family: Roboto;
-            font-size: 13px;
-            font-weight: 300;
-        }
-
-    #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 400px;
-    }
-
-        #pac-input:focus {
-            border-color: #4d90fe;
-        }
-
-    #title {
-        color: #fff;
-        background-color: #4d90fe;
-        font-size: 25px;
-        font-weight: 500;
-        padding: 6px 12px;
-    }
-
-    #target {
-        width: 345px;
-    }
-</style>
 <form id="createProduct">
     <div class="row">
         <div class="col-md-8">
@@ -141,49 +57,76 @@
                 <p id="descriptionErroeMessage"></p>
             </div>
 
-
+            @*img1*@
             <div class="form-group">
-                <label>Image<span class="required">*</span></label>
+                <label>First Image<span class="required">*</span></label>
                 <input name="ImageURL" id="ImageURL" type="hidden" />
                 <input class="form-control" id="imageUpload" name="Image" type="file" accept=".png , .jpg" />
                 <p id="imageErroeMessage"></p>
             </div>
+            <div class="thumb col-md-4">
+                <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+            </div>
 
-            @*<div class="form-group">
-                <label>Latitude<span class="required">*</span></label>
-                <input class="form-control" name="latitude" id="latitude" />
-                <p id="priceErroeMessage"></p>
-            </div>
+            @*img2*@
             <div class="form-group">
-                <label>Longitude<span class="required">*</span></label>
-                <input class="form-control" name="longitude" id="longitude" />
-                <p id="priceErroeMessage"></p>
+                <label>Second Image<span class="required">*</span></label>
+                <input name="ImageURL2" id="ImageURL2" type="hidden" />
+                <input class="form-control" id="imageUpload2" name="Image2" type="file" accept=".png , .jpg" />
+                <p id="imageErroeMessage2"></p>
             </div>
+            <div class="thumb col-md-4">
+                <img class="img-thumbnail img-fluid" id="productImage2" src="@imageURL" />
+            </div>
+
+            @*img3*@
             <div class="form-group">
-                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                <div class="flat-map" id="map"></div>
-            </div>*@
+                <label>Third Image<span class="required">*</span></label>
+                <input name="ImageURL3" id="ImageURL3" type="hidden" />
+                <input class="form-control" id="imageUpload3" name="Image3" type="file" accept=".png , .jpg" />
+                <p id="imageErroeMessage3"></p>
+            </div>
+            <div class="thumb col-md-4">
+                <img class="img-thumbnail img-fluid" id="productImage3" src="@imageURL" />
+            </div>
+
+            @*img4*@
+            <div class="form-group">
+                <label>Forth Image<span class="required">*</span></label>
+                <input name="ImageURL4" id="ImageURL4" type="hidden" />
+                <input class="form-control" id="imageUpload4" name="Image4" type="file" accept=".png , .jpg" />
+                <p id="imageErroeMessage4"></p>
+            </div>
+            <div class="thumb col-md-4">
+                <img class="img-thumbnail img-fluid" id="productImage4" src="@imageURL" />
+            </div>
+
+
+
             <button type="button" id="createBtn" class="btn btn-primary" onclick="return validateForm();">Create</button>
             <button type="button" id="cancelBtn" class="btn btn-danger">Cancel</button>
         </div>
-        <div class="col-md-4">
+        @*<div class="col-md-4">
             <div class="thumb">
                 <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
             </div>
-        </div>
+        </div>*@
 
     </div>
 </form>
 <script>
 
         function validateForm() {
-       var select=document.getElementById("categorySelect").value;
+        var select=document.getElementById("categorySelect").value;
         var name = document.getElementById("Name").value;
         var price = document.getElementById("Price").value;
         var unit = document.getElementById("Unit").value;
         var weight= document.getElementById("Weight").value;
         var description = document.getElementById("Description").value;
-       var image = document.getElementById("imageUpload").value;
+        var image = document.getElementById("imageUpload").value;
+        var image2 = document.getElementById("imageUpload2").value;
+        var image3 = document.getElementById("imageUpload3").value;
+        var image4 = document.getElementById("imageUpload4").value;
 
         if (select == "Select One") {
 
@@ -227,6 +170,24 @@
             document.getElementById("imageErroeMessage").style.color = "red";
 
         }
+       else if (image2 == "") {
+
+            document.getElementById("imageErroeMessage2").innerHTML = "Image must be upload";
+            document.getElementById("imageErroeMessage2").style.color = "red";
+
+        }
+        else if (image3 == "") {
+
+            document.getElementById("imageErroeMessage3").innerHTML = "Image must be upload";
+            document.getElementById("imageErroeMessage3").style.color = "red";
+
+        }
+        else if (image4 == "") {
+
+            document.getElementById("imageErroeMessage4").innerHTML = "Image must be upload";
+            document.getElementById("imageErroeMessage4").style.color = "red";
+
+        }
         else {
             $.ajax({
             type: 'POST',
@@ -247,6 +208,7 @@
 
         }
     }
+
      $("#imageUpload").change(function () {
         var element = this;
 
@@ -282,118 +244,119 @@
 
 
 
+     });
+     $("#imageUpload2").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL2").val(response.ImageURL);
+        		    $("#productImage2").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
+     });
+    $("#imageUpload3").change(function () {
+        var element = this;
+
+		var formData = new FormData();
+
+		var totalFiles = element.files.length;
+
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL3").val(response.ImageURL);
+        		    $("#productImage3").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
+
+
+
     });
-    //$("#createBtn").click(function () {
+    $("#imageUpload4").change(function () {
+        var element = this;
 
-    //    var nameValue = $("#Name").val();
-    //    var descriptionValue = $("#Description").val();
-    //    var priceValue = $("#Price").val();
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Product/Create',
-    //        data: $("#createProduct").serialize()
-    //        //data: {
+		var formData = new FormData();
 
-    //        //    Name: nameValue,
-    //        //    Description: descriptionValue,
-    //        //    Price: priceValue
+		var totalFiles = element.files.length;
 
-    //        //}
-    //    })
-    //        .done(function (response) {
-    //            $("#tableContainer").html(response);
-    //            $("#actionContainer").html("");
-    //             swal("Record Created Successfully.", {
-    //                icon: "success",
-    //             });
-    //        })
-    //        .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-    //            alert("Fail");
-    //        });
+		for (var i = 0; i < totalFiles; i++) {
+			var file = element.files[i];
+			formData.append("Photo", file);
+        }
+
+        $.ajax({
+			    type: 'POST',
+			    url: '@Url.Action("UploadImage", "Shared")',
+			    dataType: 'json',
+			    data: formData,
+			    contentType: false,
+			    processData: false
+		    })
+            .done(function (response) {
+        	    //console.log(response);
+
+        	    if(response.Success)
+        	    {
+        		    $("#ImageURL4").val(response.ImageURL);
+        		    $("#productImage4").attr("src", response.ImageURL);
+        	    }
+            })
+            .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        	    alert("FAIL");
+            });
 
 
-    //});
+
+    });
+    
 
     $("#cancelBtn").click(function () {
         $("#actionContainer").html("");
          focusAction("tableContainer");
     });
 </script>
-<script>
-    // This example adds a search box to a map, using the Google Place Autocomplete
-    // feature. People can enter geographical searches. The search box will return a
-    // pick list containing a mix of places and predicted search terms.
-
-    // This example requires the Places library. Include the libraries=places
-    // parameter when you first load the API. For example:
-
-
-    function drawMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -33.8688, lng: 151.2195 },
-            zoom: 13,
-            mapTypeId: 'roadmap'
-        });
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function () {
-            searchBox.setBounds(map.getBounds());
-        });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function () {
-            var places = searchBox.getPlaces();
-
-            if (places.length == 0) {
-                return;
-            }
-
-            // Clear out the old markers.
-            markers.forEach(function (marker) {
-                marker.setMap(null);
-            });
-            markers = [];
-
-            // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
-            places.forEach(function (place) {
-                if (!place.geometry) {
-                    console.log("Returned place contains no geometry");
-                    return;
-                }
-                var icon = {
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(25, 25)
-                };
-
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
-                    map: map,
-                    icon: icon,
-                    title: place.name,
-                    position: place.geometry.location
-                }));
-
-                if (place.geometry.viewport) {
-                    // Only geocodes have viewport.
-                    bounds.union(place.geometry.viewport);
-                } else {
-                    bounds.extend(place.geometry.location);
-                }
-            });
-            map.fitBounds(bounds);
-        });
-    }
-
-</script>@*AIzaSyAyJcww05ydypEg66-bXbEKrRqZvsYFcYc*@
-@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJcww05ydypEg66-bXbEKrRqZvsYFcYc&libraries=places&callback=drawMap" async defer></script>*@

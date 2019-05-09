@@ -2,90 +2,136 @@
 
 @{
     ViewBag.Title = "Checkout";
-    
+
 }
-    <div class="container">
-        @if (Model != null && Model.CartProducts != null && Model.CartProducts.Count > 0)
-        {
-            var i = 1;
-            <section class="flat-row main-shop shop-slidebar">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8 order-md-2 mb-4">
-                            <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-muted">Your cart</span>
-                            </h4>
 
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <td>Sl no.</td>
-                                        <td>Name</td>
-                                        <td>Image</td>
-                                        <td>Quantity</td>
-                                        <td>Price/unit</td>
-                                        <td>Total Price</td>
-                                        @*<td>ID</td>*@
-                                        <td>Action</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var product in Model.CartProducts)
-                                    {
-                                        var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
-                                    <tr>
-                                        <td>@i</td>
-                                        <td>@product.Name</td>
-                                        <td><img src="@product.ImageURL" height="50" width="75" /></td>
-                                        <td>@productQuantity</td>
-                                        <td>৳ @product.Price</td>
-                                        <td>৳ @(productQuantity * product.Price)</td>
-                                        @*<td>@product.ID</td>*@
-                                        <td><button onclick="location.href='@Url.Action("Checkout", "Shop")'" class="removeBtn btn btn-success" data-id="@product.ID">Remove</button></td>
-                                    </tr>
-                                        i++;
-                                    }
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>Total Price</td>
-                                        <td> ৳ @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productID => productID == x.ID).Count())</td>
-                                    </tr>
+<style>
+    .product-detail .quantity > span.inc {
+	top: 0;
+    margin-top:-10px;
+}
 
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                        <div class="col-md-4 order-md-1">
-                            <h4 class="mb-3">Billing address</h4>
-                            <form class="needs-validation" novalidate="">
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="firstName">Name</label>
-                                        <input type="text" class="form-control" id="Name" placeholder="" value="@Model.User.FirstName" required="">
-                                    </div>
-                                </div>
+.product-detail .quantity > span.dec {
+	bottom: 0;
+	border-top: 1px solid #ebebeb;
+}
 
-                                <div class="mb-3">
-                                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                                    <input type="email" class="form-control" id="Email" value="@Model.User.Email">
-                                </div>
+.product-detail .quantity > span:before {
+	content: "";
+	font-family: "FontAwesome";
+	font-size: 16px;
+	color: #333;
+}
+</style>
+<div class="container">
+    @if (Model != null && Model.CartProducts != null && Model.CartProducts.Count > 0)
+    {
+        var i = 1;
+        <section class="flat-row main-shop shop-slidebar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 order-md-2 mb-4">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Your cart</span>
+                        </h4>
 
-                                <div class="mb-3">
-                                    <label for="address">Address</label>
-                                    <textarea type="text" class="form-control" id="address" >@Model.User.Address</textarea>
-                                </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Sl no.</td>
+                                    <td>Name</td>
+                                    <td>Image</td>
+                                    @*<td>ID</td>
+                                    <td>Available</td>*@
+                                    <td>Quantity</td>
+                                    <td>Price/unit</td>
+                                    <td>Total Price</td>
 
-                                <hr class="mb-4">
-                                <button id="placeOrderBtn" class="btn btn-primary btn-lg btn-block" type="button">Place Order!</button>
-                            </form>
-                        </div>
+                                    <td>Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.CartProducts)
+                                {
+                                    var productQuantity = Model.CartProductIDs.Where(productID => productID == product.ID).Count();
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@product.Name</td>
+
+                                    @*<td>@product.ID</td>
+                                    <td>@product.Unit</td>*@
+
+                                    <td><img src="@product.ImageURL" height="50" width="75" /></td>
+                                    <td>
+
+                                        <span class="product-detail">
+                                            <span class="inner">
+                                                <span class="content-detail">
+                                                    <span class="product-quantity">
+                                                        <span class="quantity">
+
+
+                                                            <input type="text" value="@productQuantity" id="quan" name="quantity-number1" class="quantity-number1">
+                                                            <span data-id="@product.ID" data-unit="@product.Unit" data-quan="@productQuantity" class="inc quantity-button1">+</span>
+                                                            <span data-id="@product.ID" data-unit="@product.Unit" data-quan="@productQuantity" class="dec quantity-button1">-</span>
+
+
+                                                        </span>
+
+                                                    </span>
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </td>
+                                    <td>৳ @product.Price</td>
+                                    <td>৳ @(productQuantity * product.Price)</td>
+
+                                    <td><button onclick="location.href='@Url.Action("Checkout", "Shop")'" class="removeBtn btn btn-success" data-id="@product.ID">Remove</button></td>
+                                </tr>
+                                    i++;
+                                }
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total Price</td>
+                                    <td> ৳ @Model.CartProducts.Sum(x => x.Price * Model.CartProductIDs.Where(productID => productID == x.ID).Count())</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
                     </div>
-                </div><!-- /.container -->
-            </section>
-            <script>
+
+                    <div class="col-md-4 order-md-1">
+                        <h4 class="mb-3">Billing address</h4>
+                        <form class="needs-validation" novalidate="">
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="firstName">Name</label>
+                                    <input type="text" class="form-control" id="Name" placeholder="" value="@Model.User.FirstName" required="">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                                <input type="email" class="form-control" id="Email" value="@Model.User.Email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Address</label>
+                                <textarea type="text" class="form-control" id="address">@Model.User.Address</textarea>
+                            </div>
+
+                            <hr class="mb-4">
+                            <button id="placeOrderBtn" class="btn btn-primary btn-lg btn-block" type="button">Place Order!</button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.container -->
+        </section>
+        <script>
 	$("#placeOrderBtn").click(function () {
 		$.ajax({
 			url: '@Url.Action("PlaceOrder", "Shop")',
@@ -111,18 +157,142 @@
         	alert("FAIL");
         });
 	});
-            </script>
-        }
-        else
-        {
-            <div>
-                <h3>Your cart in empty</h3>
-            </div>
-        }
-    </div>
+        </script>
+    }
+    else
+    {
+        <div>
+            <h3>Your cart in empty</h3>
+        </div>
+    }
+</div>
 <script>
-  
-   
 
-   
+
+
+    $('.quantity-button1').on('click', function () {
+        
+        if ($(this).text() == "+") {
+             var available = $(this).attr('data-unit');
+            var taken = $(this).attr('data-quan');
+             taken = taken + 1;
+            //alert(available+" "+taken);
+            if (available > taken) {
+               
+                var existingCookiesData = $.cookie('CartProducts');
+
+                if (existingCookiesData != undefined && existingCookiesData != "" && existingCookiesData != null) {
+                    products = existingCookiesData.split('-');
+                }
+                else {
+                    products = [];
+                }
+
+                var aaddata = $(this).attr('data-id');
+                //alert(aaddata);
+                products.push(aaddata);
+
+
+                $.cookie('CartProducts', products.join('-'), { path: '/' });
+                updateCartProducts();
+
+                window.location = '@Url.Action("Checkout", "Shop")';
+
+                @*swal("Added", "Your Order has been updated.", "success").then((value) => {
+                    window.location = '@Url.Action("Checkout", "Shop")';
+                });*@
+            }
+            else {
+                swal("Sorry", "No more product left", "warning");
+            }
+
+
+        }
+        else {
+
+            var newid = [];
+
+            //alert(productId);
+            var remProduct = $.cookie('CartProducts').split('-');
+            var removedata = $(this).attr('data-id');
+            //alert(removedata);
+
+
+             for (var i in remProduct) {
+                    if (remProduct[i] == removedata) {
+                        var j = i;
+                        break;
+                    }
+            }
+
+            //alert(j);
+            newid = remProduct.splice(j, 1);
+
+            //remProduct.filter(x => x != removedata);
+
+            $.cookie('CartProducts', remProduct.join('-'), { path: '/' });
+            updateCartProducts();
+
+            window.location = '@Url.Action("Checkout", "Shop")';
+
+            @*swal("Removed", "Your Order has been updated.", "success").then((value) => {
+        			window.location = '@Url.Action("Checkout", "Shop")';
+        		});*@
+
+        }
+
+
+    });
+
+//     $(".productAddTocart").click(function () {
+//        var existingCookiesData = $.cookie('CartProducts');
+
+//        if (existingCookiesData != undefined && existingCookiesData != "" && existingCookiesData!=null) {
+//        products = existingCookiesData.split('-');
+//        }
+//        else {
+//        products = [];
+//        }
+
+//        var productID = $(this).attr('data-id');
+//        products.push(productID);
+
+
+//        $.cookie('CartProducts', products.join('-'), {path: '/' });
+//        updateCartProducts();
+
+//        swal({
+//        title: "Done",
+//        text: "Product Added to Cart.",
+//        icon: "success"
+//        })
+
+//     });
+
+
+//    $(".removeBtn").click(function () {
+//    var productId = $(this).attr('data-id');
+//    var remProduct = $.cookie('CartProducts').split('-');
+//    //alert(remProduct);
+
+//    var newp=[];
+
+
+
+//    for (var i in remProduct) {
+//        if (remProduct[i] != productId) {
+//            var j = remProduct[i];
+//            newp.push(j);
+//        }
+//    }
+//    //alert(newp);
+//    $.cookie('CartProducts', newp.join('-'), { path: '/' });
+//    updateCartProducts();
+//    //var remProduct1 = $.cookie('CartProducts');
+//    //alert(remProduct1);
+
+
+
+//});
+
 </script>

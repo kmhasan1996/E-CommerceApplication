@@ -28,41 +28,35 @@
     <section class="flat-row main-shop shop-detail">
         <div class="container">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="wrap-flexslider">
                         <div class="inner">
                             <div class="flexslider style-1 has-relative">
                                 <ul class="slides">
                                     <li data-thumb="@Model.Product.ImageURL">
-                                        <img src="@Model.Product.ImageURL" alt="Image">
-                                        <input type="hidden" id="productImg" value="@Model.Product.ImageURL" />
-                                        <input type="hidden" id="productName" value=" @Model.Product.Name" />
-                                        @*<input type="hidden" id="productLat" value=" @Model.Product.latitude" />
-                                        <input type="hidden" id="productLng" value=" @Model.Product.longitude" />*@
-
+                                        <img src="@Model.Product.ImageURL"  alt="Image">
                                         <div class="flat-icon style-1">
                                             <a href="@Model.Product.ImageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
                                         </div>
                                     </li>
-                                    @*<li data-thumb="images/shop/sh-detail/thumb-detail-02.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>
-                                        <li data-thumb="images/shop/sh-detail/thumb-detail-03.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>
-                                        <li data-thumb="images/shop/sh-detail/thumb-detail-04.jpg">
-                                            <img src="images/shop/sh-detail/detail-01.jpg" alt="Image">
-                                            <div class="flat-icon style-1">
-                                                <a href="images/shop/sh-detail/detail-01.jpg" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
-                                            </div>
-                                        </li>*@
+                                    <li data-thumb="@Model.Product.ImageURL2" >
+                                        <img src="@Model.Product.ImageURL2" alt="Image">
+                                        <div class="flat-icon style-1">
+                                           <a href="@Model.Product.ImageURL2" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                        </div>
+                                    </li>
+                                    <li data-thumb="@Model.Product.ImageURL3">
+                                        <img src="@Model.Product.ImageURL3" alt="Image">
+                                        <div class="flat-icon style-1">
+                                           <a href="@Model.Product.ImageURL3" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                        </div>
+                                    </li>
+                                    <li data-thumb="@Model.Product.ImageURL4">
+                                        <img src="@Model.Product.ImageURL4" alt="Image">
+                                        <div class="flat-icon style-1">
+                                           <a href="@Model.Product.ImageURL4" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                                       </div>
+                                    </li>
                                 </ul>
                             </div><!-- /.flexslider -->
                         </div>
@@ -104,11 +98,7 @@
                                     <div class="add-to-cart multiProductAddTocart" data-id="@Model.Product.ID">
                                         <a href="#">ADD TO CART</a>
                                     </div>
-                                    @*<button onclick="func();">shoe</button>*@
-                                    @*<div class="box-like">
-
-                                        <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
-                                    </div>*@
+                                    
                                 </div>
                                 <div class="product-categories">
                                     <span>Categories: </span><a href="#">@Model.Product.Category.Name</a>
@@ -120,10 +110,6 @@
                 </div>
 
             </div><!-- /.row -->
-            @*<div class="col-md-12">
-               
-                <div class="flat-map" id="mapArea"></div>
-            </div>*@
         </div><!-- /.container -->
     </section><!-- /.flat-row -->
 
@@ -143,7 +129,7 @@
                             <div class="content-tab">
                                 <div class="content-inner">
                                     @*Description*@
-                                <div class="flat-grid-box col2 border-width border-width-1 has-padding clearfix">
+                                <div class="inner max-width-83 padding-top-33">
                                     <p>
                                         @Model.Product.Description
                                     </p>
@@ -172,10 +158,10 @@
                                 </table>
                             </div>
                         </div><!-- /.content-inner -->
-                        <div id="reviews" class="content-inner">
+                        <div  class="content-inner">
                            
                         <div class="inner max-width-83 padding-top-33">
-                            <ol class="review-list">
+                            <ol id="reviews" class="review-list">
                                 @if (Model.Reviews != null)
                                 {
                                     foreach (var review in Model.Reviews)
@@ -267,6 +253,8 @@
 
 <script type="text/javascript">
 
+
+
     var productUnit = document.getElementById("unit").value;
     //var quantityNumber = function () {
     productUnit = productUnit - 1;
@@ -308,7 +296,7 @@
 
         })
             .done(function (response) {
-                //$("#reviews").html(response);
+                $("#reviews").html(response);
                 focusAction("reviews");
                 swal("Review Created Successfully.", {
                     icon: "success",
@@ -320,50 +308,9 @@
 
 
     });
-function drawMap() {
-    var select = document.getElementById("productImg").value;
-    var name = document.getElementById("productName").value;
-    var Lat = document.getElementById("productLat").value;
-    var Lng = document.getElementById("productLng").value;
-    var img = {
-        url: select, // url
-        scaledSize: new google.maps.Size(55, 40), // scaled size
-        origin: new google.maps.Point(0, 0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
-    };
-    //alert(select);
-    //var ll = 23.79804617762948;
-    //var lg = 90.44958227960831;
-    var uiu = new google.maps.LatLng(Lat, Lng);
-    map = new google.maps.Map(document.getElementById('mapArea'), {
-        center: uiu,
-        zoom: 15,
-        mapTypeId: 'hybrid'
-    });
 
-    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-    var mk = new google.maps.Marker({
-        position: uiu,
-        map: map,
-        //icon: image
-    });
-
-    var contentString = '<img src="' + select + '" height="50" width="75" />' + '<h4>' + name + '</h4>';
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString,
-        maxWidth: 200,
-        maxWidth: 400
-    });
-    infowindow.open(map, mk);
-    //     mk.addListener('click', function() {
-    //  infowindow.open(map, mk);
-    //});
-
-
-}
-
+    
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJcww05ydypEg66-bXbEKrRqZvsYFcYc&callback=drawMap"></script>
 
 

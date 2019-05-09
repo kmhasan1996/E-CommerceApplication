@@ -73,10 +73,14 @@ namespace E_Commerce.Web.Controllers
             newProduct.Unit = model.Unit;
             newProduct.Category = CategoryService.Instance.GetCategory(model.CategoryID);
             newProduct.ImageURL = model.ImageURL;
-            //newProduct.latitude = model.latitude;
-            //newProduct.longitude = model.longitude; 
+            newProduct.ImageURL2 = model.ImageURL2;
+            newProduct.ImageURL3 = model.ImageURL3;
+            newProduct.ImageURL4 = model.ImageURL4;
+            
 
             newProduct.CreatedTime = DateTime.Now;
+
+
             ProductService.Instance.CreateProduct(newProduct);
             return RedirectToAction("ProductTable");
         }
@@ -94,8 +98,10 @@ namespace E_Commerce.Web.Controllers
             model.Weight = product.Weight;
             model.Unit = product.Unit;
             model.ImageURL = product.ImageURL;
-            //model.latitude = product.latitude;
-            //model.longitude = product.longitude;
+            model.ImageURL2 = product.ImageURL2;
+            model.ImageURL3 = product.ImageURL3;
+            model.ImageURL4 = product.ImageURL4;
+          
             return PartialView(model);
         }
         [HttpPost]
@@ -108,8 +114,10 @@ namespace E_Commerce.Web.Controllers
             existingProduct.Unit = model.Unit;
             existingProduct.Description = model.Description;
             existingProduct.ImageURL = model.ImageURL;
-            //existingProduct.latitude = model.latitude;
-            //existingProduct.longitude = model.longitude;
+            existingProduct.ImageURL2 = model.ImageURL2;
+            existingProduct.ImageURL3 = model.ImageURL3;
+            existingProduct.ImageURL4 = model.ImageURL4;
+            
 
             ProductService.Instance.UpdateProduct(existingProduct);
             return RedirectToAction("ProductTable");
@@ -143,17 +151,10 @@ namespace E_Commerce.Web.Controllers
 
 
             ProductService.Instance.CreateReview(newReview);
-            return View("ProductDetails");
+            return RedirectToAction("ProductDetails");
         }
 
-        //public ActionResult ProductOnMap()
-
-        //{
-        //    var Products = ProductService.Instance.GetProducts();
-
-        //    return View(Products);
-        //}
-
+        
 
     }
 }

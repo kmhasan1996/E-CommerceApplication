@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Index";
+    var AllOrder = Model.AllOrders.Count;
+    var PendingOrder = Model.PendingOrders.Count;
+    var InProgressOrder = Model.InProgressOrders.Count;
+    var DeliveredOrder = Model.DeliveredOrders.Count;
 }
 
 <link href="~/Content/DataTables/DataTables-1.10.18/css/jquery.dataTables.css" rel="stylesheet" />
@@ -29,10 +33,10 @@
                         <div class="flat-tabs style-1 has-border">
                             <div class="inner">
                                 <ul class="menu-tab">
-                                    <li class="active">All Orders</li>
-                                    <li>Pending</li>
-                                    <li>In Progress</li>
-                                    <li >Delivered</li>
+                                    <li class="active">All Orders (@AllOrder)</li>
+                                    <li>Pending(@PendingOrder)</li>
+                                    <li>In Progress(@InProgressOrder)</li>
+                                    <li >Delivered(@DeliveredOrder)</li>
                                 </ul>
                                 <div class="content-tab">
 
