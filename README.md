@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Project Links:
 
 Live Project: http://www.livestock.somee.com/
 
